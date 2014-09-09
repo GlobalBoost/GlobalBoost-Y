@@ -1,0 +1,20 @@
+This directory contains files used to package globalboostyd/globalboost-y-qt
+for Debian-based Linux systems.
+
+If you compile globalboostyd/globalboost-y-qt yourself, there are some
+useful files here:
+
+bitcoin: URI support
+--------------------
+
+globalboost-y-qt.desktop  (Gnome / Open Desktop)
+To install:
+  sudo desktop-file-install globalboost-y-qt.desktop
+  sudo update-desktop-database
+
+If you build yourself, you will either need to modify the paths in
+the .desktop file or copy or symlink your globalboost-y-qt binary to /usr/bin
+and the ../../share/pixmaps/bitcoin128.png to /usr/share/pixmaps
+
+globalboost-y-qt.protocol (KDE)
+
