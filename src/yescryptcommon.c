@@ -327,36 +327,45 @@ yescrypt_gensalt(uint32_t N_log2, uint32_t r, uint32_t p,
 	    buf, sizeof(buf));
 }
 
-int
-crypto_scrypt(const uint8_t * passwd, size_t passwdlen,
+static int
+yescrypt_bsty(const uint8_t * passwd, size_t passwdlen,
     const uint8_t * salt, size_t saltlen, uint64_t N, uint32_t r, uint32_t p,
     uint8_t * buf, size_t buflen)
 {
-	yescrypt_shared_t shared;
-	yescrypt_local_t local;
+	static __thread int initialized = 0;
+	static __thread yescrypt_shared_t shared;
+	static __thread yescrypt_local_t local;
 	int retval;
-
-	if (yescrypt_init_shared(&shared, NULL, 0,
-	    0, 0, 0, YESCRYPT_SHARED_DEFAULTS, 0, NULL, 0))
-		return -1;
-	if (yescrypt_init_local(&local)) {
-		yescrypt_free_shared(&shared);
-		return -1;
-	}
+	if (!initialized) {
+/* "shared" could in fact be shared, but it's simpler to keep it private
+ * along with "local".  It's dummy and tiny anyway. */
+		if (yescrypt_init_shared(&shared, NULL, 0,
+		    0, 0, 0, YESCRYPT_SHARED_DEFAULTS, 0, NULL, 0))
+			return -1;
+		if (yescrypt_init_local(&local)) {
+			yescrypt_free_shared(&shared);
+			return -1;
+		}
+		initialized = 1;
+ 	}
 	retval = yescrypt_kdf(&shared, &local,
-	    passwd, passwdlen, salt, saltlen, N, r, p, 0, YESCRYPT_FLAGS, buf, buflen);
+	    passwd, passwdlen, salt, saltlen, N, r, p, 0, YESCRYPT_FLAGS,
+	    buf, buflen);		
+#if 0		
 	if (yescrypt_free_local(&local)) {
 		yescrypt_free_shared(&shared);
 		return -1;
 	}
 	if (yescrypt_free_shared(&shared))
 		return -1;
+	initialized = 0;
+#endif		
 	return retval;
 }
 
 void yescrypt_hash_sp(const char *input, char *output)
 {
-   crypto_scrypt((const uint8_t *) input, 80,(const uint8_t *) input, 80, 2048, 8, 1, (uint8_t *)output, 32);
+   yescrypt_bsty((const uint8_t *)input, 80, (const uint8_t *) input, 80, 2048, 8, 1, (uint8_t *)output, 32);
 }
 
 void yescrypt_hash(const char *input, char *output)

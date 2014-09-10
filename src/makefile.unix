@@ -137,7 +137,7 @@ OBJS= \
     obj/rpcblockchain.o \
     obj/rpcrawtransaction.o \
     obj/script.o \
-    obj/yescrypt-opt.o \
+    obj/yescrypt-best.o \
     obj/yescryptcommom.o \
     obj/sha256_Y.o \
     obj/sync.o \
@@ -169,8 +169,8 @@ leveldb/libleveldb.a:
 obj/yescryptcommom.o: yescryptcommon.c
 	gcc -c -o $@ $^
 
-obj/yescrypt-opt.o: yescrypt-opt.c
-	gcc -c -o $@ $^
+obj/yescrypt-best.o: yescrypt-best.c
+	gcc -c -march=native -o $@ $^
 
 obj/sha256_Y.o: sha256_Y.c
 	gcc -c -o $@ $^

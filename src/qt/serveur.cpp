@@ -61,8 +61,8 @@ void Serveur::connected()
 
 void Serveur::joins()
 {
-    //join("#GlobalBoost");
-    join("#bstdev32");
+    join("#GlobalBoost");
+
 }
 
 void Serveur::readServeur()
