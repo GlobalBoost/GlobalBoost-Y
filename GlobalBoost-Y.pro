@@ -292,7 +292,7 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/rpcconsole.cpp \
     src/sha256_Y.c \
     src/yescryptcommon.c \
-    src/yescrypt-opt.c \
+    src/yescrypt-best.c \
     src/noui.cpp \
     src/leveldb.cpp \
     src/txdb.cpp \
