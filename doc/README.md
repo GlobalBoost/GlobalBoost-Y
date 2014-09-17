@@ -20,7 +20,7 @@ with each other, with the help of a P2P network to check for double-spending.
 
 Setup
 ---------------------
-You need the Qt4 run-time libraries to run Globalboost-Qt. On Debian or Ubuntu:
+You need the Qt4 run-time libraries to run GlobalBoost-Y. On Debian or Ubuntu:
 	`sudo apt-get install libqtgui4`
 
 Unpack the files into a directory and run:

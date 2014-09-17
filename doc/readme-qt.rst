@@ -1,4 +1,4 @@
-Globalboost-Qt: Qt4 GUI for Globalboost
+GlobalBoost-Y: Qt4 GUI for Globalboost
 ===============================
 
 Build instructions

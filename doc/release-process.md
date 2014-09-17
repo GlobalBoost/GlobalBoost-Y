@@ -95,9 +95,9 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
 	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
 	python2.7 share/qt/clean_mac_info_plist.py
-	python2.7 contrib/macdeploy/macdeployqtplus Globalboost-Qt.app -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist
+	python2.7 contrib/macdeploy/macdeployqtplus GlobalBoost-Y.app -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist
 
- Build output expected: Globalboost-Qt.dmg
+ Build output expected: GlobalBoost-Y.dmg
 
 ###Next steps:
 

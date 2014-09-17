@@ -371,8 +371,8 @@ void MiningPage::minerError(QProcess::ProcessError error)
 {
     if (error == QProcess::FailedToStart)
     {
-       // reportToList("Miner failed to start. Make sure you have the minerd executable and libraries in the same directory as GlobalBoost-Qt.", ERROR, NULL);
-        message(CMD_ERROR, tr("Miner failed to start. Make sure you have the minerd executable and libraries in the same directory as GlobalBoost-Qt."));
+       // reportToList("Miner failed to start. Make sure you have the minerd executable and libraries in the same directory as GlobalBoost-Y.", ERROR, NULL);
+        message(CMD_ERROR, tr("Miner failed to start. Make sure you have the minerd executable and libraries in the same directory as GlobalBoost-Y."));
     }
 }
 

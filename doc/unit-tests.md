@@ -19,7 +19,7 @@ implement new BOOST_AUTO_TEST_SUITE sections (the makefiles are
 set up to add test/*.cpp to test_globalboost automatically).
 
 
-Compiling/running Globalboost-Qt unit tests
+Compiling/running GlobalBoost-Y unit tests
 ---------------------------------------
 
 globalboost-y-Qt unit tests are in the src/qt/test/ directory; they

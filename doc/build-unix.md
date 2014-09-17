@@ -14,7 +14,7 @@ To Build
 	cd src/
 	make -f makefile.unix		# Headless globalboost
 
-See readme-qt.rst for instructions on building Globalboost-Qt, the graphical user interface.
+See readme-qt.rst for instructions on building GlobalBoost-Y, the graphical user interface.
 
 Dependencies
 ---------------------

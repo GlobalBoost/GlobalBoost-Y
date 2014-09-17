@@ -381,7 +381,7 @@ QPushButton:pressed:flat {
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the Globalboost-Qt help message to get a list with possible Globalboost command-line options.</string>
+          <string>Show the GlobalBoost-Y help message to get a list with possible Globalboost command-line options.</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
