@@ -1,7 +1,7 @@
 EMPLATE = app
 TARGET = globalboost-qt
 macx:TARGET = "GlobalBoost-Y"
-VERSION = 0.9.0.2
+VERSION = 0.9.0.3
 INCLUDEPATH += src src/json src/qt
 QT += core gui network webkit
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
