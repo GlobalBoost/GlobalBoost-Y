@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
-    <height>430</height>
+    <width>747</width>
+    <height>514</height>
    </rect>
   </property>
   <widget class="QWidget" name="widget_2" native="true">
@@ -15,7 +15,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>791</width>
+     <width>741</width>
      <height>511</height>
     </rect>
    </property>
@@ -25,10 +25,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>10</y>
-      <width>791</width>
-      <height>420</height>
+      <width>721</width>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -40,7 +40,7 @@
        <x>10</x>
        <y>0</y>
        <width>541</width>
-       <height>350</height>
+       <height>451</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -70,8 +70,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>370</y>
-       <width>541</width>
+       <y>460</y>
+       <width>701</width>
        <height>30</height>
       </rect>
      </property>
@@ -87,17 +87,14 @@
        <height>30</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
     </widget>
     <widget class="QListView" name="userView">
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>30</y>
-       <width>191</width>
-       <height>321</height>
+       <y>20</y>
+       <width>161</width>
+       <height>391</height>
       </rect>
      </property>
      <property name="minimumSize">
@@ -107,68 +104,17 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-QScrollBar:vertical {
-     border: 0px solid grey;
-     background: white;
-     width: 9px;
-     margin: 0px 0px 0 0px;
- }
- QScrollBar::handle:vertical {
-     background: rgb(191,25,25);
-     min-width: 20px;
- }
-
-QScrollBar:horizontal {
-     border: 0px solid grey;
-     background: white;
-     width: 9px;
-     margin: 0px 0px 0 0px;
- }
- QScrollBar::handle:horizontal{
-     background: rgb(191,25,25);
-     min-width: 20px;
- }</string>
+      <string notr="true">border-radius:10px;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="disconnect">
      <property name="geometry">
       <rect>
-       <x>565</x>
-       <y>370</y>
-       <width>180</width>
-       <height>26</height>
+       <x>642</x>
+       <y>420</y>
+       <width>71</width>
+       <height>28</height>
       </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 170px;
- max-width:170px;
- min-height: 20px;
- max-height: 20px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
      </property>
      <property name="text">
       <string>Disconnect</string>
@@ -178,39 +124,60 @@ QPushButton:pressed:flat {
    <widget class="QWidget" name="hide3" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>791</width>
-      <height>420</height>
+      <x>10</x>
+      <y>10</y>
+      <width>731</width>
+      <height>501</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">font-family:Proxima Nova Rg;</string>
-    </property>
-    <widget class="QLabel" name="label_2">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>351</width>
-       <height>211</height>
+       <x>10</x>
+       <y>20</y>
+       <width>250</width>
+       <height>27</height>
       </rect>
      </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A few IRC commands :&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;/JOIN #channel &lt;span style=&quot; color:#9a9a9a;&quot;&gt;Join a channel&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;/NICK nickname &lt;span style=&quot; color:#9a9a9a;&quot;&gt;Change nickname&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;/PRIVMSG nickname message &lt;span style=&quot; color:#9a9a9a;&quot;&gt;Send PM &lt;/span&gt;&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If userlist gets buggy, switch tabs to fix&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
+     <layout class="QHBoxLayout" name="hide1">
+      <property name="spacing">
+       <number>7</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="font">
+         <font>
+          <family>Open Sans,sans-serif</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20px; font-weight:600; color:#000000;&quot;&gt;Globalboost IRC Chat&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </widget>
     <widget class="QLineEdit" name="editPseudo">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>190</y>
+       <x>160</x>
+       <y>160</y>
        <width>151</width>
-       <height>21</height>
+       <height>22</height>
       </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(85, 170, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -219,70 +186,43 @@ QPushButton:pressed:flat {
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>190</y>
-       <width>81</width>
+       <x>100</x>
+       <y>160</y>
+       <width>61</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Nickname:</string>
+      <string>Nickname</string>
      </property>
     </widget>
     <widget class="QPushButton" name="buttonConnect">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>220</y>
+       <x>160</x>
+       <y>200</y>
        <width>151</width>
-       <height>24</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 80px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
+      <string notr="true">border-radius:40px;border:1px solid grey</string>
      </property>
      <property name="text">
-      <string>CONNECT</string>
+      <string>Click to connect</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_10">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>160</y>
-       <width>231</width>
-       <height>21</height>
+       <x>100</x>
+       <y>130</y>
+       <width>121</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Connect to #GlobalBoost&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Connect to IRC:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>

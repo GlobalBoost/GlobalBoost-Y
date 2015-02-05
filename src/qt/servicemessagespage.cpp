@@ -8,7 +8,7 @@
 #include "optionsmodel.h"
 #include "guiutil.h"
 #include "guiconstants.h"
-#include <QtWebKit>
+//#include <QtWebKit>
 #include <QStandardItemModel>
 #include <QAbstractItemDelegate>
 #include <QPainter>
@@ -47,7 +47,7 @@ ServiceMessagesPage::ServiceMessagesPage(QWidget *parent) :
     ui->tableServiceMessagesView->horizontalHeader()->setStretchLastSection(true);
     ui->tableServiceMessagesView->resizeRowsToContents();
 
-    ui->webView->load(QUrl("qrc:///html/Home.html"));
+  //  ui->webView->load(QUrl("qrc:///html/Home.html"));
 }
 
 void ServiceMessagesPage::handleClicked(const QModelIndex &index)

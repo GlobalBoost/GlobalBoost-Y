@@ -1,12 +1,8 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
 #ifndef MACDOCKICONHANDLER_H
 #define MACDOCKICONHANDLER_H
 
 #include <QObject>
-//#include <QMainWindow>
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 class QMenu;
@@ -31,7 +27,7 @@ public:
 
     QMenu *dockMenu();
     void setIcon(const QIcon &icon);
-   // void setMainWindow(QMainWindow *window);
+    void setMainWindow(QMainWindow *window);
     static MacDockIconHandler *instance();
 
     void handleDockIconClickEvent();
@@ -45,7 +41,7 @@ private:
     DockIconClickEventHandler *m_dockIconClickEventHandler;
     QWidget *m_dummyWidget;
     QMenu *m_dockMenu;
-   // QMainWindow *mainWindow;
+    QMainWindow *mainWindow;
 };
 
 #endif // MACDOCKICONCLICKHANDLER_H

@@ -133,7 +133,7 @@
  }
 
 QLabel {
-	color:Black;
+	color:White;
 }
 </string>
      </property>
@@ -164,7 +164,7 @@ QLabel {
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border-color: grey;</string>
+           <string notr="true">border-color: white;</string>
           </property>
          </widget>
         </item>
@@ -224,7 +224,7 @@ QLabel {
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border-color: grey;</string>
+           <string notr="true">border-color: white;</string>
           </property>
          </widget>
         </item>

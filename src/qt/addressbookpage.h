@@ -1,7 +1,3 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php
-
 #ifndef ADDRESSBOOKPAGE_H
 #define ADDRESSBOOKPAGE_H
 
@@ -41,7 +37,7 @@ public:
     explicit AddressBookPage(Mode mode, Tabs tab, QWidget *parent = 0);
     ~AddressBookPage();
 
-    void setModel(AddressTableModel *model, bool isMove);
+    void setModel(AddressTableModel *model);
     void setOptionsModel(OptionsModel *optionsModel);
     const QString &getReturnValue() const { return returnValue; }
 
@@ -58,43 +54,32 @@ private:
     QString returnValue;
     QSortFilterProxyModel *proxyModel;
     QMenu *contextMenu;
-    QAction *deleteAction; // to be able to explicitly disable it
+    QAction *deleteAction;
     QString newAddressToSelect;
 
 private slots:
-    /** Delete currently selected address entry */
     void on_deleteButton_clicked();
-    void on_editButton_clicked();
-    /** Create a new address for receiving coins and / or add a new address book entry */
     void on_newAddressButton_clicked();
     /** Copy address of currently selected address entry to clipboard */
     void on_copyToClipboard_clicked();
-    /** Open the sign message tab in the Sign/Verify Message dialog with currently selected address */
     void on_signMessage_clicked();
-    /** Open the verify message tab in the Sign/Verify Message dialog with currently selected address */
     void on_verifyMessage_clicked();
-    /** Open send coins dialog for currently selected address (no button) */
-   // void onSendCoinsAction();
-    /** Generate a QR Code from the currently selected address */
-    void on_showQRCode_clicked();
-    /** Copy label of currently selected address entry to clipboard (no button) */
-    void onCopyLabelAction();
-    /** Edit currently selected address entry (no button) */
-    void onEditAction();
-    /** Export button clicked */
-    //void on_exportButton_clicked();
-
-    /** Set button states based on selected tab and selection */
     void selectionChanged();
+    void on_showQRCode_clicked();
     /** Spawn contextual menu (right mouse menu) for address book entry */
     void contextualMenu(const QPoint &point);
+
+    /** Copy label of currently selected address entry to clipboard */
+    void onCopyLabelAction();
+    /** Edit currently selected address entry */
+    void onEditAction();
+
     /** New entry/entries were added to address table */
-    void selectNewAddress(const QModelIndex &parent, int begin, int /*end*/);
+    void selectNewAddress(const QModelIndex &parent, int begin, int end);
 
 signals:
     void signMessage(QString addr);
     void verifyMessage(QString addr);
-    void sendCoins(QString addr);
 };
 
-#endif // ADDRESSBOOKPAGE_H
+#endif // ADDRESSBOOKDIALOG_H
