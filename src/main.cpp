@@ -4699,7 +4699,7 @@ void static GlobalboostMiner(CWallet *pwallet)
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
 
-    try { loop {
+    try { while (true) {
         while (vNodes.empty())
             MilliSleep(1000);
 
@@ -4737,13 +4737,13 @@ void static GlobalboostMiner(CWallet *pwallet)
         //
         int64 nStart = GetTime();
         uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
-        loop
+        while (true)
         {
             unsigned int nHashesDone = 0;
 
             uint256 thash;
             
-            loop
+            while (true)
             {
                 yescrypt_hash_sp(BEGIN(pblock->nVersion), BEGIN(thash));
 

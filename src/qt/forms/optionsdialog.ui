@@ -10,19 +10,8 @@
     <height>380</height>
    </rect>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>390</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>Options</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);
-
-</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -34,7 +23,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabMain">
       <attribute name="title">
@@ -42,152 +31,9 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Main">
        <item>
-        <widget class="QCheckBox" name="bitcoinAtStartup">
-         <property name="toolTip">
-          <string>Automatically start Globalboost-Y after logging in to the system.</string>
-         </property>
-         <property name="text">
-          <string>&amp;Start Globalboost-Y on system login</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_Main">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
-         <item>
-          <spacer name="horizontalSpacer_2_Main">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="resetButton">
-           <property name="toolTip">
-            <string>Reset all client options to default.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 120px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
-           </property>
-           <property name="text">
-            <string>&amp;Reset Options</string>
-           </property>
-           <property name="autoDefault">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tabWallet">
-      <property name="styleSheet">
-       <string notr="true">/* ================= combobox */
-QValueComboBox {
-    border: 1px solid #ededed;
-    padding: 0px 18px 0px 3px;
-    min-width: 20px;
-	min-height: 20px;
- }
-
-QValueComboBox:editable {
-     background-color: rgb(192,25,25);
- }
-
-QValueComboBox:!editable{
-      background-color: white;
- }
-
-QValueComboBox:!editable:on {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:!editable:off {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:on {
-     /*padding-top: 3px;
-     padding-left: 4px;*/
- }
-
-QValueComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-	background-color: rgb(191,25,25);
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid;
-}
-QValueComboBox::drop-down:hover, QComboBox::drop-down:on {
-	background-color: rgb(191,25,25);
-}
-
-QValueComboBox::down-arrow {
-	image: url(:/res/combo_arrow.png);
- }
-
-QValueComboBox::down-arrow:on {
-/*     top: 1px;
-     left: 1px;*/
- }</string>
-      </property>
-      <attribute name="title">
-       <string>W&amp;allet</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_main">
-       <item>
         <widget class="QLabel" name="transactionFeeInfoLabel">
          <property name="text">
-          <string>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB.</string>
+          <string>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</string>
          </property>
          <property name="textFormat">
           <enum>Qt::PlainText</enum>
@@ -198,7 +44,7 @@ QValueComboBox::down-arrow:on {
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_1_Main">
+        <layout class="QHBoxLayout" name="horizontalLayoutFee">
          <item>
           <widget class="QLabel" name="transactionFeeLabel">
            <property name="text">
@@ -216,7 +62,7 @@ QValueComboBox::down-arrow:on {
           <widget class="BitcoinAmountField" name="transactionFee"/>
          </item>
          <item>
-          <spacer name="horizontalSpacer_1_Main">
+          <spacer name="horizontalSpacerFee">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -231,9 +77,12 @@ QValueComboBox::down-arrow:on {
         </layout>
        </item>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="reserveBalanceInfoLabel">
          <property name="text">
-          <string>If you disable the spending of unconfirmed change, the change from a transaction cannot be used until that transaction has at least one confirmation. This also affects how your balance is computed.</string>
+          <string>Reserved amount does not participate in staking and is therefore spendable at any time.</string>
+         </property>
+         <property name="textFormat">
+          <enum>Qt::PlainText</enum>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -241,14 +90,60 @@ QValueComboBox::down-arrow:on {
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="spendZeroConfChange">
+        <layout class="QHBoxLayout" name="horizontalLayoutReserveBalance">
+         <item>
+          <widget class="QLabel" name="reserveBalanceLabel">
+           <property name="text">
+            <string>Reserve</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::PlainText</enum>
+           </property>
+           <property name="buddy">
+            <cstring>reserveBalance</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="BitcoinAmountField" name="reserveBalance"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacerReserveBalance">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="bitcoinAtStartup">
+         <property name="toolTip">
+          <string>Automatically start Globalboost after logging in to the system.</string>
+         </property>
          <property name="text">
-          <string>Spend unconfirmed change  (experts only)</string>
+          <string>&amp;Start Globalboost on system login</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <widget class="QCheckBox" name="detachDatabases">
+         <property name="toolTip">
+          <string>Detach block and address databases at shutdown. This means they can be moved to another data directory, but it slows down shutdown. The wallet is always detached.</string>
+         </property>
+         <property name="text">
+          <string>&amp;Detach databases at shutdown</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_Main">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -270,7 +165,7 @@ QValueComboBox::down-arrow:on {
        <item>
         <widget class="QCheckBox" name="mapPortUpnp">
          <property name="toolTip">
-          <string>Automatically open the Globalboost-Y client port on the router. This only works when your router supports UPnP and it is enabled.</string>
+          <string>Automatically open the Globalboost client port on the router. This only works when your router supports UPnP and it is enabled.</string>
          </property>
          <property name="text">
           <string>Map port using &amp;UPnP</string>
@@ -280,7 +175,7 @@ QValueComboBox::down-arrow:on {
        <item>
         <widget class="QCheckBox" name="connectSocks">
          <property name="toolTip">
-          <string>Connect to the Globalboost-Y network through a SOCKS proxy (e.g. when connecting through Tor).</string>
+          <string>Connect to the Globalboost network through a SOCKS proxy (e.g. when connecting through Tor).</string>
          </property>
          <property name="text">
           <string>&amp;Connect through SOCKS proxy:</string>
@@ -358,59 +253,6 @@ QValueComboBox::down-arrow:on {
           <widget class="QValueComboBox" name="socksVersion">
            <property name="toolTip">
             <string>SOCKS version of the proxy (e.g. 5)</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">/* ================= combobox */
-QValueComboBox {
-    border: 1px solid #ededed;
-    padding: 0px 18px 0px 3px;
-    min-width: 20px;
-	min-height: 20px;
- }
-
-QValueComboBox:editable {
-     background-color: rgb(192,25,25);
- }
-
-QValueComboBox:!editable{
-      background-color: white;
- }
-
-QValueComboBox:!editable:on {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:!editable:off {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:on {
-     /*padding-top: 3px;
-     padding-left: 4px;*/
- }
-
-QValueComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-	background-color: rgb(191,25,25);
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid;
-}
-QValueComboBox::drop-down:hover, QComboBox::drop-down:on {
-	background-color: rgb(191,25,25);
-}
-
-QValueComboBox::down-arrow {
-	image: url(:/res/combo_arrow.png);
- }
-
-QValueComboBox::down-arrow:on {
-/*     top: 1px;
-     left: 1px;*/
- }</string>
            </property>
           </widget>
          </item>
@@ -507,60 +349,7 @@ QValueComboBox::down-arrow:on {
          <item>
           <widget class="QValueComboBox" name="lang">
            <property name="toolTip">
-            <string>The user interface language can be set here. This setting will take effect after restarting Globalboost-Y.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">/* ================= combobox */
-QValueComboBox {
-    border: 1px solid #ededed;
-    padding: 0px 18px 0px 3px;
-    min-width: 20px;
-	min-height: 20px;
- }
-
-QValueComboBox:editable {
-     background-color: rgb(192,25,25);
- }
-
-QValueComboBox:!editable{
-      background-color: white;
- }
-
-QValueComboBox:!editable:on {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:!editable:off {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:on {
-     /*padding-top: 3px;
-     padding-left: 4px;*/
- }
-
-QValueComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-	background-color: rgb(191,25,25);
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid;
-}
-QValueComboBox::drop-down:hover, QComboBox::drop-down:on {
-	background-color: rgb(191,25,25);
-}
-
-QValueComboBox::down-arrow {
-	image: url(:/res/combo_arrow.png);
- }
-
-QValueComboBox::down-arrow:on {
-/*     top: 1px;
-     left: 1px;*/
- }</string>
+            <string>The user interface language can be set here. This setting will take effect after restarting Globalboost.</string>
            </property>
           </widget>
          </item>
@@ -586,59 +375,6 @@ QValueComboBox::down-arrow:on {
            <property name="toolTip">
             <string>Choose the default subdivision unit to show in the interface and when sending coins.</string>
            </property>
-           <property name="styleSheet">
-            <string notr="true">/* ================= combobox */
-QValueComboBox {
-    border: 1px solid #ededed;
-    padding: 0px 18px 0px 3px;
-    min-width: 20px;
-	min-height: 20px;
- }
-
-QValueComboBox:editable {
-     background-color: rgb(192,25,25);
- }
-
-QValueComboBox:!editable{
-      background-color: white;
- }
-
-QValueComboBox:!editable:on {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:!editable:off {
-     background-color:rgb(191,25,25);
- }
-
-QValueComboBox:on {
-     /*padding-top: 3px;
-     padding-left: 4px;*/
- }
-
-QValueComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-	background-color: rgb(191,25,25);
-
-    border-left-width: 1px;
-    border-left-color: darkgray;
-    border-left-style: solid;
-}
-QValueComboBox::drop-down:hover, QComboBox::drop-down:on {
-	background-color: rgb(191,25,25);
-}
-
-QValueComboBox::down-arrow {
-	image: url(:/res/combo_arrow.png);
- }
-
-QValueComboBox::down-arrow:on {
-/*     top: 1px;
-     left: 1px;*/
- }</string>
-           </property>
           </widget>
          </item>
         </layout>
@@ -646,7 +382,7 @@ QValueComboBox::down-arrow:on {
        <item>
         <widget class="QCheckBox" name="displayAddresses">
          <property name="toolTip">
-          <string>Whether to show Globalboost-Y addresses in the transaction list or not.</string>
+          <string>Whether to show Globalboost addresses in the transaction list or not.</string>
          </property>
          <property name="text">
           <string>&amp;Display addresses in transaction list</string>
@@ -729,36 +465,6 @@ QValueComboBox::down-arrow:on {
      </item>
      <item>
       <widget class="QPushButton" name="okButton">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 80px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
-       </property>
        <property name="text">
         <string>&amp;OK</string>
        </property>
@@ -766,36 +472,6 @@ QPushButton:pressed:flat {
      </item>
      <item>
       <widget class="QPushButton" name="cancelButton">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 80px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
-       </property>
        <property name="text">
         <string>&amp;Cancel</string>
        </property>
@@ -806,36 +482,6 @@ QPushButton:pressed:flat {
      </item>
      <item>
       <widget class="QPushButton" name="applyButton">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 80px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
-       </property>
        <property name="text">
         <string>&amp;Apply</string>
        </property>
@@ -850,20 +496,19 @@ QPushButton:pressed:flat {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QValidatedLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>qvalidatedlineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>BitcoinAmountField</class>
-   <extends>QLineEdit</extends>
+   <extends>QSpinBox</extends>
    <header>bitcoinamountfield.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>QValueComboBox</class>
    <extends>QComboBox</extends>
    <header>qvaluecombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QValidatedLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qvalidatedlineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

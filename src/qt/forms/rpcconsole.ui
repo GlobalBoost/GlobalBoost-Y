@@ -7,14 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>491</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Globalboost - Debug window</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -327,36 +324,6 @@
          <property name="toolTip">
           <string>Open the Globalboost debug log file from the current data directory. This can take a few seconds for large log files.</string>
          </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 150px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
-         </property>
          <property name="text">
           <string>&amp;Open</string>
          </property>
@@ -381,37 +348,7 @@ QPushButton:pressed:flat {
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the GlobalBoost-Y help message to get a list with possible Globalboost command-line options.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
- color: white;
- background-color: #BF1919;
- border-width: 0px;
- border-color: #339;
- border-style: solid;
- border-radius: 7;
- padding: 3px;
- font-size: 12px;
- padding-left: 5px;
- padding-right: 5px;
- min-width: 150px;
- max-width:150px;
- min-height: 18px;
- max-height: 18px;
-}
-
-QPushButton:!enabled {
-	background-color: #769597;
-}
-
-QPushButton:hover {
-	background-color: #990000;
-}
-
-QPushButton:pressed:flat {
-	background-color: #00a99d;
-}</string>
+          <string>Show the Globalboost-Qt help message to get a list with possible Globalboost command-line options.</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
@@ -482,27 +419,12 @@ QPushButton:pressed:flat {
           <widget class="QPushButton" name="clearButton">
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
-             <height>16777215</height>
+             <width>24</width>
+             <height>24</height>
             </size>
            </property>
            <property name="toolTip">
             <string>Clear console</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-	text-align:left;
-	border: 0px solid gray;
-	padding: 3px 5px 3px 5px;
-}
-
-QPushButton:pressed:flat {
-	background-color: #D9D9D9;
-}
-
-QPushButton:hover {
-	background-color: #D9D9D9;
-}</string>
            </property>
            <property name="text">
             <string/>

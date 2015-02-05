@@ -7,14 +7,8 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>380</height>
+    <height>500</height>
    </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>390</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Coin Control</string>
@@ -265,7 +259,7 @@
           <enum>Qt::ActionsContextMenu</enum>
          </property>
          <property name="text">
-          <string>no</string>
+          <string notr="true">no</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -432,13 +426,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="labelLocked">
-         <property name="text">
-          <string>(1 locked)</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -484,7 +471,7 @@
      </column>
      <column>
       <property name="text">
-       <string notr="true">Label</string>
+       <string>Label</string>
       </property>
      </column>
      <column>

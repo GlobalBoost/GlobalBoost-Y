@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-#include <QBitmap>
+
 
 class TransactionTableModel;
 class ClientModel;
@@ -12,12 +12,13 @@ class TransactionView;
 class OverviewPage;
 class AddressBookPage;
 class SendCoinsDialog;
-class MiningPage;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
-class ServiceMessagesPage;
+class ActionButton;
 class ChatWindow;
+class MiningPage;
+
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -28,12 +29,7 @@ class QModelIndex;
 class QProgressBar;
 class QStackedWidget;
 class QUrl;
-class QWebView;
 QT_END_NAMESPACE
-
-namespace Ui {
-class MainWindow;
-}
 
 /**
   Bitcoin GUI main class. This class represents the main window of the Bitcoin UI. It communicates with both the client and
@@ -54,28 +50,17 @@ public:
         The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
+	void RunMiningAsStartup();
+//	void SetMiningStatus(bool isMining);
     void setWalletModel(WalletModel *walletModel);
-
-    void RunMiningAsStartup();
-    void SetMiningStatus(bool isMining);
 
 protected:
     void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
-    bool eventFilter(QObject *object, QEvent *event);
-    void resizeEvent(QResizeEvent *e);
-    void paintEvent(QPaintEvent *e);
 
 private:
-    void updateMask();
-
-private:
-    Ui::MainWindow *ui;
-    QBitmap _mask;
-    QBitmap _logoWidgetMask;
-
     ClientModel *clientModel;
     WalletModel *walletModel;
 
@@ -87,20 +72,21 @@ private:
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-    MiningPage *miningPage;
-    ServiceMessagesPage* serviceMessagesPage;
-    ChatWindow* chatwindow;
+	ChatWindow *chatWindow;
+	MiningPage *miningPage;
 
+	
     QLabel *labelEncryptionIcon;
+	QLabel *labelMiningIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
 
-    QWebView *webviewBlocksIcon;
-
     QMenuBar *appMenuBar;
     QAction *overviewAction;
+    QAction *chatAction;
+	QAction *miningAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -115,8 +101,13 @@ private:
     QAction *encryptWalletAction;
     QAction *backupWalletAction;
     QAction *changePassphraseAction;
+    QAction *unlockWalletAction;
+    QAction *lockWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+
+	
+    ActionButton* actionButton;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -131,10 +122,12 @@ private:
     void createMenuBar();
     /** Create the toolbars */
     void createToolBars();
-    /** Create system tray icon and notification */
+    void _addButtonInToolbar(QAction *action,QToolBar *toolbar);
+
+    /** Create system tray (notification) icon */
     void createTrayIcon();
-    /** Create system tray menu (or setup the dock menu) */
-    void createTrayIconMenu();
+
+
 
 public slots:
     /** Set number of connections shown in the UI */
@@ -145,16 +138,16 @@ public slots:
        @param[in] status            current encryption status
        @see WalletModel::EncryptionStatus
     */
+	/** Set the encryption status as shown in the UI.
+       @param[in] status            current encryption status
+       @see WalletModel::EncryptionStatus
+    */
+	/** Set mining status and hashrate in the UI */
+    void setMining(bool mining, int hashrate);
     void setEncryptionStatus(int status);
 
-    /** Notify the user of an event from the core network or transaction handling code.
-       @param[in] title     the message box / notification title
-       @param[in] message   the displayed text
-       @param[in] style     modality and style definitions (icon and used buttons - buttons only for message boxes)
-                            @see CClientUIInterface::MessageBoxFlags
-       @param[in] ret       pointer to a bool that will be modified to whether Ok was clicked (modal only)
-    */
-    void message(const QString &title, const QString &message, unsigned int style, bool *ret = NULL);
+    /** Notify the user of an error in the network or transaction handling code. */
+    void error(const QString &title, const QString &message, bool modal);
     /** Asks the user whether to pay the transaction fee or to cancel the transaction.
        It is currently not possible to pass a return value to another thread through
        BlockingQueuedConnection, so an indirected pointer is used.
@@ -167,13 +160,10 @@ public slots:
     void handleURI(QString strURI);
 
 private slots:
-
-    void menuFileRequested();
-    void menuOperationsRequested();
-    void menuSettingsRequested();
-
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+	/** Switch to mining page */
+    void gotoMiningPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -182,15 +172,14 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
-    /** Switch to ChatWindow page */
-    void gotochatwindow();
+
+	/** Switch to chat page */
+	void gotoChatPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-
-    void gotoServiceMessagesPage();
 
     /** Show configuration dialog */
     void optionsClicked();
@@ -204,7 +193,7 @@ private slots:
 
         The new items are those between start and end inclusive, under the given parent item.
     */
-    void incomingTransaction(const QModelIndex& parent, int start, int /*end*/);
+    void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
     void encryptWallet(bool status);
     /** Backup the wallet */
@@ -214,13 +203,14 @@ private slots:
     /** Ask for passphrase to unlock wallet temporarily */
     void unlockWallet();
 
+    void lockWallet();
+
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);
-    /** Simply calls showNormalIfMinimized(true) for use in SLOT() macro */
+    /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
 
-    void onMiningClicked();
-    void on_bHelp_clicked();
+    void applyTheme(QString name="default");
 };
 
-#endif // BITCOINGUI_H
+#endif
