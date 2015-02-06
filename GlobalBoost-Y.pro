@@ -9,6 +9,7 @@ CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
 
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
@@ -178,6 +179,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/aboutdialog.h \
     src/qt/editaddressdialog.h \
     src/qt/bitcoinaddressvalidator.h \
+	src/qt/tradingdialog.h \
     src/alert.h \
     src/addrman.h \
     src/base58.h \
@@ -273,6 +275,7 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
+	src/qt/tradingdialog.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -360,6 +363,7 @@ FORMS += src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/chatwindow.ui \
     src/qt/forms/servicemessagespage.ui \
     src/qt/forms/mainwindow.ui \
+	src/qt/forms/tradingdialog.ui \
     src/qt/forms/miningpage.ui \
 	src/qt/plugins/mrichtexteditor/mrichtextedit.ui \
 	src/qt/forms/Header.ui \

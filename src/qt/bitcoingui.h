@@ -18,7 +18,7 @@ class RPCConsole;
 class ActionButton;
 class ChatWindow;
 class MiningPage;
-
+class tradingDialog;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -74,7 +74,7 @@ private:
     SignVerifyMessageDialog *signVerifyMessageDialog;
 	ChatWindow *chatWindow;
 	MiningPage *miningPage;
-
+	tradingDialog   *tradingDialogPage;
 	
     QLabel *labelEncryptionIcon;
 	QLabel *labelMiningIcon;
@@ -105,7 +105,7 @@ private:
     QAction *lockWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
-
+	QAction *TradingAction;
 	
     ActionButton* actionButton;
 
@@ -175,7 +175,8 @@ private slots:
 
 	/** Switch to chat page */
 	void gotoChatPage();
-
+	/** Switch to trading page */
+    void gotoTradingPage();
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */

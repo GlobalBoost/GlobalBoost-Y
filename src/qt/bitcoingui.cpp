@@ -30,7 +30,7 @@
 #include "ActionButton.h"
 #include "header.h"
 #include "chatwindow.h"
-
+#include "tradingdialog.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -133,6 +133,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     receiveCoinsPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::ReceivingTab);
 
     sendCoinsPage = new SendCoinsDialog(this);
+	tradingDialogPage = new tradingDialog(this);
+	tradingDialogPage->setObjectName("tradingDialog");
     signVerifyMessageDialog = new SignVerifyMessageDialog(this);
 
     centralWidget = new QStackedWidget(this);
@@ -143,6 +145,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	centralWidget->addWidget(miningPage);
     centralWidget->addWidget(sendCoinsPage);
     centralWidget->addWidget(chatWindow);
+	centralWidget->addWidget(tradingDialogPage);
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -194,6 +197,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), transactionView, SLOT(focusTransaction(QModelIndex)));
+	connect(TradingAction, SIGNAL(triggered()), tradingDialogPage, SLOT(InitTrading()));
     // Double-clicking on a transaction on the transaction history page shows details
     connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), transactionView, SLOT(showDetails()));
 
@@ -289,6 +293,13 @@ void BitcoinGUI::createActions()
 	miningAction->setProperty("objectName","miningAction");
     tabGroup->addAction(miningAction);
 	
+	TradingAction = new QAction(tr("&Trade"), this);
+    TradingAction ->setToolTip(tr("Start Trading"));
+    TradingAction ->setCheckable(true);
+    TradingAction ->setShortcut(QKeySequence(Qt::ALT + Qt::Key_8));
+	TradingAction->setProperty("objectName","TradingAction");
+    tabGroup->addAction(TradingAction);
+	
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
 	connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningPage()));
@@ -301,7 +312,7 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
-
+	connect(TradingAction, SIGNAL(triggered()), this, SLOT(gotoTradingPage()));
 
     quitAction = new QAction(QIcon(":/default/res/themes/default/icons/light/sign-out.png"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -413,6 +424,7 @@ void BitcoinGUI::createToolBars()
 	_addButtonInToolbar(historyAction,toolbar);
     _addButtonInToolbar(addressBookAction,toolbar);
 	_addButtonInToolbar(miningAction,toolbar);
+	_addButtonInToolbar(TradingAction,toolbar);
     _addButtonInToolbar(exportAction,toolbar);
 	
     addToolBar(Qt::LeftToolBarArea,toolbar);
@@ -841,6 +853,15 @@ void BitcoinGUI::gotoAddressBookPage()
     connect(exportAction, SIGNAL(triggered()), addressBookPage, SLOT(exportClicked()));
 }
 
+void BitcoinGUI::gotoTradingPage()
+{
+
+     TradingAction->setChecked(true);
+     centralWidget->setCurrentWidget(tradingDialogPage);
+
+  //  exportAction->setEnabled(false);
+  //  disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+}
 
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
