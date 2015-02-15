@@ -3,13 +3,14 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-
+#include <QBitmap>
 
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+class BlockBrowser;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
@@ -67,6 +68,7 @@ private:
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
+	BlockBrowser *blockBrowser;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
@@ -87,6 +89,7 @@ private:
     QAction *overviewAction;
     QAction *chatAction;
 	QAction *miningAction;
+	QAction *blockAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -146,6 +149,14 @@ public slots:
     void setMining(bool mining, int hashrate);
     void setEncryptionStatus(int status);
 
+	    /** Notify the user of an event from the core network or transaction handling code.
+       @param[in] title     the message box / notification title
+       @param[in] message   the displayed text
+       @param[in] style     modality and style definitions (icon and used buttons - buttons only for message boxes)
+                            @see CClientUIInterface::MessageBoxFlags
+       @param[in] ret       pointer to a bool that will be modified to whether Ok was clicked (modal only)
+    */
+    void message(const QString &title, const QString &message, unsigned int style, bool *ret = NULL);
     /** Notify the user of an error in the network or transaction handling code. */
     void error(const QString &title, const QString &message, bool modal);
     /** Asks the user whether to pay the transaction fee or to cancel the transaction.
@@ -162,6 +173,8 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+	/** Switch to block explorer*/
+    void gotoBlockBrowser();
 	/** Switch to mining page */
     void gotoMiningPage();
     /** Switch to history (transactions) page */

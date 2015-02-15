@@ -50,7 +50,8 @@ int nScriptCheckThreads = 0;
 bool fImporting = false;
 bool fReindex = false;
 bool fBenchmark = false;
-bool fTxIndex = false;
+//bool fTxIndex = false;
+bool fTxIndex = true;  // enable txindex=1 by default
 unsigned int nCoinCacheSize = 5000;
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
@@ -2864,7 +2865,8 @@ bool InitBlockIndex() {
         return true;
 
     // Use the provided setting for -txindex in the new database
-    fTxIndex = GetBoolArg("-txindex", false);
+   // fTxIndex = GetBoolArg("-txindex", false);
+	fTxIndex = GetBoolArg("-txindex", true); // enable txindex by default =1
     pblocktree->WriteFlag("txindex", fTxIndex);
     printf("Initializing databases...\n");
 

@@ -2722,7 +2722,7 @@ mesela: alertnotify=echo %%s | mail -s &quot;GlobalBoost-Y Alert&quot; globalboo
     </message>
     <message>
         <location line="+1"/>
-        <source>You need to rebuild the databases using -reindex to change -txindex</source>
+        <source>You need to rebuild the databases</source>
         <translation>-txindex&apos;i değiştirmek için veritabanlarını -reindex kullanarak yeniden inşa etmeniz gerekir.</translation>
     </message>
     <message>

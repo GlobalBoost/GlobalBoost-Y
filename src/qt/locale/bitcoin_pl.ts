@@ -2721,7 +2721,7 @@ na przykład: alertnotify=echo %%s | mail -s &quot;Alarm GlobalBoost-Y&quot; glo
     </message>
     <message>
         <location line="+1"/>
-        <source>You need to rebuild the databases using -reindex to change -txindex</source>
+        <source>You need to rebuild the databases</source>
         <translation>Musisz przebudować bazę używając parametru -reindex aby zmienić -txindex</translation>
     </message>
     <message>

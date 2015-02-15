@@ -205,6 +205,6 @@ QT_TRANSLATE_NOOP("globalboost-y-core", "Verifying wallet..."),
 QT_TRANSLATE_NOOP("globalboost-y-core", "Wallet needed to be rewritten: restart Globalboost to complete"),
 QT_TRANSLATE_NOOP("globalboost-y-core", "Warning"),
 QT_TRANSLATE_NOOP("globalboost-y-core", "Warning: This version is obsolete, upgrade required!"),
-QT_TRANSLATE_NOOP("globalboost-y-core", "You need to rebuild the database using -reindex to change -txindex"),
+QT_TRANSLATE_NOOP("globalboost-y-core", "You need to rebuild the database"),
 QT_TRANSLATE_NOOP("globalboost-y-core", "wallet.dat corrupt, salvage failed"),
 };

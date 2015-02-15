@@ -1,0 +1,1779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>804</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>804</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <stylestrategy>PreferAntialias</stylestrategy>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWindow {
+	background-color: white;
+	/*margin: 6px;
+	/*border: 6px solid rgba(0,0,0, 0);*/
+}
+
+QMenu {
+    background-color: white;
+    border: 0px solid black;
+}
+
+QMenu::item {
+    background-color: transparent;
+	color: black;
+}
+
+QMenu::item:selected {
+    background-color: rgb(191,25,25);
+	color: white;
+}
+
+/* ================= combobox */
+QComboBox {
+    border: 1px solid #ededed;
+    padding: 0px 18px 0px 3px;
+    min-width: 20px;
+	min-height: 20px;
+ }
+
+ QComboBox:editable {
+     background-color: rgb(192,25,25);
+ }
+
+ QComboBox:!editable{
+      background-color: white;
+ }
+
+ QComboBox:!editable:on {
+     background-color:rgb(191,25,25);
+ }
+
+ QComboBox:!editable:off {
+     background-color:rgb(191,25,25);
+ }
+
+ QComboBox:on {
+     /*padding-top: 3px;
+     padding-left: 4px;*/
+ }
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+	background-color: rgb(191,25,25);
+
+    border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid;
+}
+QComboBox::drop-down:hover, QComboBox::drop-down:on {
+	background-color: rgb(191,25,25);
+}
+
+ QComboBox::down-arrow {
+	image: url(:/res/combo_arrow.png);
+ }
+
+ QComboBox::down-arrow:on {
+/*     top: 1px;
+     left: 1px;*/
+ }
+
+/* =========== QLineEdit =============*/
+QLineEdit {
+	border: 1px solid #ededed;
+
+}
+/* =========== header ===============*/
+QWidget[is_header=&quot;true&quot;] {
+	background-color: Black;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,0,0,0">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>6</number>
+    </property>
+    <property name="topMargin">
+     <number>6</number>
+    </property>
+    <property name="rightMargin">
+     <number>6</number>
+    </property>
+    <property name="bottomMargin">
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="wHeader" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>127</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>127</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#wHeader {
+	background-color: white;
+}
+
+QWidget {
+	color: black;
+}</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="wLogo" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>85</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>85</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#wHeader {
+	background-color: transparent;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="QPushButton" name="bHome">
+                 <property name="minimumSize">
+                  <size>
+                   <width>85</width>
+                   <height>85</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>85</width>
+                   <height>85</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Welcome to payment system GlobalBoost-Y BSTY. This is your personal account&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+	border: 0px solid gray;
+	image: url(:/res/logo.png);
+}
+
+QPushButton:pressed:flat {
+
+}
+
+QPushButton:hover {
+
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="flat">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QPushButton" name="bNewMessage">
+                   <property name="minimumSize">
+                    <size>
+                     <width>30</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>30</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:flat {
+	border: 0px solid gray;
+	image: url(:/res/icons/message.png);
+}
+
+QPushButton:pressed:flat {
+	image: url(:/res/mail/mail_normal.png);
+}
+
+QPushButton:hover {
+	image: url(:/res/mail/mail_hover.png);
+}</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>26</width>
+                     <height>17</height>
+                    </size>
+                   </property>
+                   <property name="flat">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QWidget" name="wCaption" native="true">
+           <property name="styleSheet">
+            <string notr="true">#wCaption {
+	background-color: rgb(191, 25, 25);
+}
+
+QWidget {
+	color: white;
+}</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,0,0,0,0,0,1,0,0">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>14</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>GlobalBoost-Y</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="font">
+                 <font>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+	color: rgb(190, 191, 191);
+}</string>
+                </property>
+                <property name="text">
+                 <string>Digital Money</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	padding: 10px;
+	background-color: transparent;
+}
+
+QPushButton:pressed {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	background-color: rgb(180, 0, 0);
+}</string>
+              </property>
+              <property name="text">
+               <string>File</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_10">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>5</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	padding: 10px;
+	background-color: transparent;
+}
+
+QPushButton:pressed {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	background-color: rgb(183, 0, 0);
+}</string>
+              </property>
+              <property name="text">
+               <string>Operations</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_12">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>5</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	padding: 10px;
+	background-color: transparent;
+}
+
+QPushButton:pressed {
+	border: 0px solid #d5c3b4;
+	margin: 0px;
+	background-color: rgb(183, 0, 0);
+}</string>
+              </property>
+              <property name="text">
+               <string>Settings</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>15</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QWidget" name="wCaptionButtons" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+	border: 0px solid gray;
+	image: url(:/res/minimize_normal.png);
+}
+
+QPushButton:pressed:flat {
+	border: 0px solid gray;
+	image: url(:/res/minimize_normal.png);
+}
+
+QPushButton:hover {
+	image: url(:/res/minimize_hover.png);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>:/res/minimize.png</normaloff>:/res/minimize.png</iconset>
+                 </property>
+                 <property name="flat">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {	
+	image: url(:/res/close_normal.png);
+	border: 0px solid gray;
+}
+QPushButton:pressed:flat {
+	image: url(:/res/close_normal.png);
+}
+
+QPushButton:hover {
+	image: url(:/res/close_hover.png);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="flat">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QWidget" name="wMining" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>90</width>
+               <height>76</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>90</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">#wMining {
+	background-color: white
+}
+
+#wMining:hover {
+	background-color: #D9D9D9;
+}
+
+#wMining[is_pressed=&quot;true&quot;] {
+	background-color: #B70000;
+}
+
+#wMining[is_checked=&quot;true&quot;] {
+	background-color: #ff0000;
+}</string>
+             </property>
+             <property name="is_checked" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="is_pressed" stdset="0">
+              <bool>false</bool>
+             </property>
+             <widget class="QLabel" name="label_16">
+              <property name="geometry">
+               <rect>
+                <x>30</x>
+                <y>7</y>
+                <width>41</width>
+                <height>51</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="../res.qrc">:/res/mining.png</pixmap>
+              </property>
+             </widget>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="geometry">
+               <rect>
+                <x>30</x>
+                <y>40</y>
+                <width>20</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">/* =========== CheckBox ==============*/
+QCheckBox {
+    spacing: 5px;
+	color: Black;
+}
+
+QCheckBox::indicator {
+    width: 12px;
+    height: 12px;
+}
+
+QCheckBox::indicator:unchecked {
+	image: url(:/res/check_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover {
+    image: url(:/res/check_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    image: url(:/res/check_unchecked.png);
+}
+
+QCheckBox::indicator:checked {
+	image: url(:/res/check_checked.png);
+}
+
+QCheckBox::indicator:checked:hover {
+    image: url(:/res/check_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed {
+    image: url(:/res/check_checked.png);
+}
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+             <widget class="QLabel" name="label_17">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>57</y>
+                <width>90</width>
+                <height>20</height>
+               </rect>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+	color: Black;
+}</string>
+              </property>
+              <property name="text">
+               <string>Mining</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="3">
+              <widget class="QPushButton" name="bchat">
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>IRC Chat</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../bitcoin.qrc">
+                 <normaloff>:/icons/res/icons/group.png</normaloff>:/icons/res/icons/group.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="pushButton_12">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Address Book</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/icons/address_book.png</normaloff>:/res/icons/address_book.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="pushButton_11">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color:#D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Verify Message</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/icons/verify_message.png</normaloff>:/res/icons/verify_message.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="pushButton_10">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Sign Message</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/icons/sign_message.png</normaloff>:/res/icons/sign_message.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="pushButton_8">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Transactions</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/icons/transactions.png</normaloff>:/res/icons/transactions.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="pushButton_7">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Receive BSTY</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/download.png</normaloff>:/res/download.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="pushButton_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Send BSTY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Send BSTY</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../res.qrc">
+                 <normaloff>:/res/upload.png</normaloff>:/res/upload.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QPushButton" name="pushButton_trade">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	text-align:left;
+	border: 0px solid gray;
+	padding: 3px 5px 3px 5px;
+}
+
+QPushButton:pressed:flat {
+	background-color: #D9D9D9;
+}
+
+QPushButton:hover {
+	background-color: #D9D9D9;
+}</string>
+               </property>
+               <property name="text">
+                <string>Trade</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../bitcoin.qrc">
+                 <normaloff>:/icons/trading</normaloff>:/icons/trading</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+			   <property name="flat">
+                <bool>true</bool>
+				</property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="bAbout">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	border: 0px solid gray;
+	image: url(:/res/icons/Exclamation-mark.png);
+}
+
+QPushButton:pressed:flat {
+	image: url(:/res/about_pressed.png);
+}
+
+QPushButton:hover {
+	image: url(:/res/about_hover.png);
+}</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>26</width>
+                 <height>26</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bHelp">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	border: 0px solid gray;
+	image: url(:/res/icons/Question-mark.png);
+}
+
+QPushButton:pressed:flat {
+	image: url(:/res/help_pressed.png);
+}
+
+QPushButton:hover {
+	image: url(:/res/help_hover.png);
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>26</width>
+                 <height>26</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="maximumSize">
+       <size>
+        <width>804</width>
+        <height>440</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line_4">
+      <property name="styleSheet">
+       <string notr="true">background-color: #C00000;</string>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="wStatusBar" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>37</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>37</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#wStatusBar {
+	background-color: #BF1919;
+}
+QLabel {
+	color: #c8e1e1;
+}</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1,0,1,0,0,0">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>5</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="minimumSize">
+          <size>
+           <width>263</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Synchronization</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="progressBar">
+         <property name="minimumSize">
+          <size>
+           <width>208</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar {
+    border: 0px solid grey;
+	background-color: white;
+}
+
+QProgressBar::chunk {
+    background-color: #ff0000;
+    /*width: 20px;*/
+}</string>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+         <property name="format">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>10549874 blocks</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string notr="true"/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../res.qrc">:/res/connection_1.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>5</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../bitcoin.qrc"/>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>796</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>736</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showMinimized()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>760</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>754</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoHistoryPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>477</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>803</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bHome</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoOverviewPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>81</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menuFileRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>358</x>
+     <y>32</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>73</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menuOperationsRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>293</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menuSettingsRequested()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>541</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>601</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoReceiveCoinsPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>310</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>-8</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoAddressBookPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>-7</y>
+    </hint>
+   </hints>
+  </connection>
+    <connection>
+   <sender>pushButton_trade</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoTradingPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>-7</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoSendCoinsPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>120</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_10</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoSignMessageTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>614</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_11</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>gotoVerifyMessageTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>634</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bAbout</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>aboutClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>775</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>mininigClicked(bool)</slot>
+  <slot>showTransactionsRequested()</slot>
+  <slot>showHomeRequested()</slot>
+  <slot>menuFileRequested()</slot>
+  <slot>menuOperationsRequested()</slot>
+  <slot>menuSettingsRequested()</slot>
+  <slot>showReceiveBSTYsRequested()</slot>
+  <slot>showAddressBookRequested()</slot>
+  <slot>showSendBSTYsRequested()</slot>
+  <slot>transactionsSortOrderChanged()</slot>
+  <slot>showServiceMessages()</slot>
+  <slot>addAddressBookRecordRequested()</slot>
+  <slot>showSignMessageRequested()</slot>
+  <slot>showMessageVerificationDialogRequested()</slot>
+  <slot>verifyMessageRequested()</slot>
+  <slot>signMessageRequested()</slot>
+  <slot>editAddressBookRecordRequested()</slot>
+  <slot>useProxyChangedRequested(bool)</slot>
+  <slot>gotoOverviewPage()</slot>
+  <slot>gotoHistoryPage()</slot>
+  <slot>gotoAddressBookPage()</slot>
+  <slot>gotoTradingPage()</slot>
+  <slot>gotoReceiveCoinsPage()</slot>
+  <slot>gotoSendCoinsPage()</slot>
+  <slot>optionsClicked()</slot>
+  <slot>aboutClicked()</slot>
+  <slot>gotoSignMessageTab()</slot>
+  <slot>gotoVerifyMessageTab()</slot>
+  <slot>onMiningClicked()</slot>
+  <slot>onMiningToggled(bool)</slot>
+ </slots>
+</ui>

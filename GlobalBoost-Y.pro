@@ -8,7 +8,8 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE BOOST_SPIRIT_THRE
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-
+CONFIG += openssl-linked
+CONFIG += openssl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
@@ -259,6 +260,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/servicemessagedialog.h \
 	src/qt/header.h  \
 	src/qt/ActionButton.h \
+	src/qt/blockbrowser.h \
     src/qt/QtWaitingSpinner.h \
     src/qt/chatwindow.h
 
@@ -342,6 +344,7 @@ SOURCES += src/qt/bitcoin.cpp \
 	src/qt/header.cpp \
 	src/qt/QtWaitingSpinner.cpp \
 	src/qt/ActionButton.cpp \
+	src/qt/blockbrowser.cpp \
     src/qt/chatwindow.cpp
 
 RESOURCES += src/qt/bitcoin.qrc \
@@ -367,6 +370,7 @@ FORMS += src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/miningpage.ui \
 	src/qt/plugins/mrichtexteditor/mrichtextedit.ui \
 	src/qt/forms/Header.ui \
+	src/qt/forms/blockbrowser.ui \
     src/qt/forms/transactionspage.ui
 
 contains(USE_QRCODE, 1) {
