@@ -2722,7 +2722,7 @@ například: alertnotify=echo %%s | mail -s &quot;GlobalBoost-Y Alert&quot; glob
     </message>
     <message>
         <location line="+1"/>
-        <source>You need to rebuild the databases using -reindex to change -txindex</source>
+        <source>You need to rebuild the databases</source>
         <translation>Je třeba přestavět databázi použitím -reindex, aby bylo možné změnit -txindex</translation>
     </message>
     <message>

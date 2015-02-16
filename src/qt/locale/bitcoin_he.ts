@@ -2721,7 +2721,7 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+1"/>
-        <source>You need to rebuild the databases using -reindex to change -txindex</source>
+        <source>You need to rebuild the databases</source>
         <translation>עליך לבנות מחדש את מסדי הנתונים תוך שימוש ב- -reindex על מנת לשנות את -txindex</translation>
     </message>
     <message>

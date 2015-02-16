@@ -25,12 +25,17 @@
 #include "askpassphrasedialog.h"
 #include "notificator.h"
 #include "guiutil.h"
+#include "ui_interface.h"
+#include "init.h"
+#include "util.h"
+#include "main.h"
 #include "rpcconsole.h"
 #include "wallet.h"
 #include "ActionButton.h"
 #include "header.h"
 #include "chatwindow.h"
 #include "tradingdialog.h"
+#include "blockbrowser.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -68,6 +73,7 @@
 #include <QtCore/QStandardPaths>
 #endif
 #include <QStyle>
+#include <QPainter>
 #include <QStyleFactory>
 #include <QDebug>
 
@@ -121,6 +127,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	chatWindow->setObjectName("ChatWindow");
 	miningPage = new MiningPage(this);
 	miningPage->setObjectName("miningPage");
+	blockBrowser = new BlockBrowser;
+    blockBrowser->setObjectName("BlockBrowser");
 	
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -146,6 +154,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(sendCoinsPage);
     centralWidget->addWidget(chatWindow);
 	centralWidget->addWidget(tradingDialogPage);
+	centralWidget->addWidget(blockBrowser);
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -300,6 +309,14 @@ void BitcoinGUI::createActions()
 	TradingAction->setProperty("objectName","TradingAction");
     tabGroup->addAction(TradingAction);
 	
+	blockAction = new QAction(tr("&Block Explorer"), this);
+    blockAction->setToolTip(tr("Explore the BlockChain"));
+    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    blockAction->setCheckable(true);
+    blockAction->setProperty("objectName","blockAction");
+    tabGroup->addAction(blockAction);
+	
+	connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
 	connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningPage()));
@@ -421,6 +438,7 @@ void BitcoinGUI::createToolBars()
     _addButtonInToolbar(sendCoinsAction,toolbar);
     _addButtonInToolbar(receiveCoinsAction,toolbar);
 	_addButtonInToolbar(chatAction,toolbar);
+	_addButtonInToolbar(blockAction,toolbar);
 	_addButtonInToolbar(historyAction,toolbar);
     _addButtonInToolbar(addressBookAction,toolbar);
 	_addButtonInToolbar(miningAction,toolbar);
@@ -472,7 +490,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
         connect(clientModel, SIGNAL(miningChanged(bool,int)), this, SLOT(setMining(bool,int)));
 
         // Report errors from network/worker thread
-        connect(clientModel, SIGNAL(error(QString,QString,bool)), this, SLOT(error(QString,QString,bool)));
+        connect(clientModel, SIGNAL(message(QString,QString,unsigned int)), this, SLOT(message(QString,QString,unsigned int)));
 
         rpcConsole->setClientModel(clientModel);
         addressBookPage->setOptionsModel(clientModel->getOptionsModel());
@@ -497,7 +515,8 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
 		miningPage->setModel(clientModel);
-
+		blockBrowser->setModel(clientModel);
+		
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
 
@@ -695,6 +714,55 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     progressBar->setToolTip(tooltip);
 }
 
+void BitcoinGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
+{
+    QString strTitle = tr("GlobalBoost") + " - ";
+    // Default to information icon
+    int nMBoxIcon = QMessageBox::Information;
+    int nNotifyIcon = Notificator::Information;
+
+    // Check for usage of predefined title
+    switch (style) {
+    case CClientUIInterface::MSG_ERROR:
+        strTitle += tr("Error");
+        break;
+    case CClientUIInterface::MSG_WARNING:
+        strTitle += tr("Warning");
+        break;
+    case CClientUIInterface::MSG_INFORMATION:
+        strTitle += tr("Information");
+        break;
+    default:
+        strTitle += title; // Use supplied title
+    }
+
+    // Check for error/warning icon
+    if (style & CClientUIInterface::ICON_ERROR) {
+        nMBoxIcon = QMessageBox::Critical;
+        nNotifyIcon = Notificator::Critical;
+    }
+    else if (style & CClientUIInterface::ICON_WARNING) {
+        nMBoxIcon = QMessageBox::Warning;
+        nNotifyIcon = Notificator::Warning;
+    }
+
+    // Display message
+    if (style & CClientUIInterface::MODAL) {
+        // Check for buttons, use OK as default, if none was supplied
+        QMessageBox::StandardButton buttons;
+        if (!(buttons = (QMessageBox::StandardButton)(style & CClientUIInterface::BTN_MASK)))
+            buttons = QMessageBox::Ok;
+
+        QMessageBox mBox((QMessageBox::Icon)nMBoxIcon, strTitle, message, buttons);
+        int r = mBox.exec();
+        if (ret != NULL)
+            *ret = r == QMessageBox::Ok;
+    }
+    else
+        notificator->notify((Notificator::Class)nNotifyIcon, strTitle, message);
+}
+
+
 void BitcoinGUI::setMining(bool mining, int hashrate)
 {
     if (mining)
@@ -851,6 +919,15 @@ void BitcoinGUI::gotoAddressBookPage()
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), addressBookPage, SLOT(exportClicked()));
+}
+
+void BitcoinGUI::gotoBlockBrowser()
+{
+    blockAction->setChecked(true);
+    centralWidget->setCurrentWidget(blockBrowser);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoTradingPage()

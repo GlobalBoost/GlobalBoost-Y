@@ -2721,7 +2721,7 @@ nt: alertnotify=echo %%s | email -s &quot;GlobalBoost-Y Alert&quot; globalboostw
     </message>
     <message>
         <location line="+1"/>
-        <source>You need to rebuild the databases using -reindex to change -txindex</source>
+        <source>You need to rebuild the databases</source>
         <translation>Andmebaas tuleb taastada kasutades -reindex, et muuta -txindex</translation>
     </message>
     <message>
