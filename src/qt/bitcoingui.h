@@ -20,6 +20,8 @@ class ActionButton;
 class ChatWindow;
 class MiningPage;
 class tradingDialog;
+class SocialNetworkManagerPage;
+class SearchEnginePage;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -77,6 +79,8 @@ private:
 	ChatWindow *chatWindow;
 	MiningPage *miningPage;
 	tradingDialog   *tradingDialogPage;
+	SocialNetworkManagerPage *socialnetworkmanagerPage;
+	SearchEnginePage *searchenginePage;
 	
     QLabel *labelEncryptionIcon;
 	QLabel *labelMiningIcon;
@@ -90,6 +94,8 @@ private:
     QAction *chatAction;
 	QAction *miningAction;
 	QAction *blockAction;
+	QAction *socialnetworkmanagerAction;
+	QAction *searchengineAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -190,6 +196,8 @@ private slots:
 	void gotoChatPage();
 	/** Switch to trading page */
     void gotoTradingPage();
+	void gotoSocialNetworkManagerPage();
+	void gotoSearchEnginePage();
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */

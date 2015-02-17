@@ -7,14 +7,15 @@ QT += core gui network printsupport script widgets
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE BOOST_SPIRIT_THREADSAFE BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
 CONFIG += thread
-CONFIG += static
+#CONFIG += static
+#CONFIG += openssl-linked
+#CONFIG += openssl
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
+lessThan(QT_MAJOR_VERSION, 5): CONFIG += webkit 
 QMAKE_CXXFLAGS = -fpermissive
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
+    QT += webkit webkitwidgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
  
@@ -79,9 +80,9 @@ QMAKE_CXXFLAGS += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
 win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
 # on Windows: enable GCC large address aware linker flag
-win32:QMAKE_LFLAGS *= -Wl,--large-address-aware -static
-win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
-lessThan(QT_MAJOR_VERSION, 5): win32: QMAKE_LFLAGS *= -static
+win32:QMAKE_LFLAGS *= -Wl,--large-address-aware 
+#win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
+#lessThan(QT_MAJOR_VERSION, 5): win32: QMAKE_LFLAGS *= -static
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -179,6 +180,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/editaddressdialog.h \
     src/qt/bitcoinaddressvalidator.h \
 	src/qt/tradingdialog.h \
+	src/qt/socialnetworkmanagerpage.h \
+	src/qt/searchenginepage.h \
     src/alert.h \
     src/addrman.h \
     src/base58.h \
@@ -276,6 +279,8 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
 	src/qt/tradingdialog.cpp \
+	src/qt/socialnetworkmanagerpage.cpp \
+	src/qt/searchenginepage.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -365,6 +370,8 @@ FORMS += src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/servicemessagespage.ui \
     src/qt/forms/mainwindow.ui \
 	src/qt/forms/tradingdialog.ui \
+	src/qt/forms/socialnetworkmanagerpage.ui \
+	src/qt/forms/searchenginepage.ui \
     src/qt/forms/miningpage.ui \
 	src/qt/plugins/mrichtexteditor/mrichtextedit.ui \
 	src/qt/forms/Header.ui \

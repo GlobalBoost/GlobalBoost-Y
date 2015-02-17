@@ -1225,6 +1225,24 @@ QToolBar:vertical QPushButton#blockAction:checked
     background: url(":/default/res/themes/default/icon-txt/active/block.png") no-repeat left 0 transparent; 
 }
 
+QToolBar:vertical QPushButton#socialnetworkmanagerAction
+{
+    background: url(":/default/res/themes/default/icon-txt/normal/socialmanager.png") no-repeat left 0 transparent; 
+}
+QToolBar:vertical QPushButton#socialnetworkmanagerAction:checked
+{
+    background: url(":/default/res/themes/default/icon-txt/active/socialmanager.png") no-repeat left 0 transparent; 
+}
+
+QToolBar:vertical QPushButton#searchengineAction
+{
+    background: url(":/default/res/themes/default/icon-txt/normal/searchengine.png") no-repeat left 0 transparent; 
+}
+QToolBar:vertical QPushButton#searchengineAction:checked
+{
+    background: url(":/default/res/themes/default/icon-txt/active/searchengine.png") no-repeat left 0 transparent; 
+}
+
 QToolBar:vertical QPushButton#exportAction
 {
     background: url(":/default/res/themes/default/icon-txt/normal/export.png") no-repeat left 0 transparent; 

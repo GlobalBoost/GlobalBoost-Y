@@ -3,6 +3,8 @@
         <file>res/themes/default/icon-txt/normal/address.png</file>
 		<file>res/themes/default/icon-txt/normal/mining.png</file>
         <file>res/themes/default/icon-txt/normal/block.png</file>
+		<file>res/themes/default/icon-txt/normal/socialmanager.png</file>
+		<file>res/themes/default/icon-txt/normal/searchengine.png</file>
         <file>res/themes/default/icon-txt/normal/chat.png</file>
 		<file>res/themes/default/icon-txt/normal/trade.png</file>
         <file>res/themes/default/icon-txt/normal/export.png</file>
@@ -13,6 +15,8 @@
         <file>res/themes/default/icon-txt/active/address.png</file>
 		<file>res/themes/default/icon-txt/active/mining.png</file>
         <file>res/themes/default/icon-txt/active/block.png</file>
+		<file>res/themes/default/icon-txt/active/socialmanager.png</file>
+		<file>res/themes/default/icon-txt/active/searchengine.png</file>
 		<file>res/themes/default/icon-txt/active/trade.png</file>
         <file>res/themes/default/icon-txt/active/chat.png</file>
         <file>res/themes/default/icon-txt/active/export.png</file>

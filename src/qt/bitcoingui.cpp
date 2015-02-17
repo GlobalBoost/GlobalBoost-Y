@@ -36,6 +36,8 @@
 #include "chatwindow.h"
 #include "tradingdialog.h"
 #include "blockbrowser.h"
+#include "socialnetworkmanagerpage.h"
+#include "searchenginepage.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -97,7 +99,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0),
     rpcConsole(0)
 {
-    resize(850, 550);
+    resize(1100, 550);
     setWindowTitle(tr("GlobalBoost") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
@@ -129,6 +131,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	miningPage->setObjectName("miningPage");
 	blockBrowser = new BlockBrowser;
     blockBrowser->setObjectName("BlockBrowser");
+	socialnetworkmanagerPage = new SocialNetworkManagerPage(this);
+	socialnetworkmanagerPage->setObjectName("SocialNetworkManagerPage");
+	searchenginePage = new SearchEnginePage(this);
+	searchenginePage->setObjectName("searchenginePage");
 	
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -155,6 +161,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(chatWindow);
 	centralWidget->addWidget(tradingDialogPage);
 	centralWidget->addWidget(blockBrowser);
+	centralWidget->addWidget(socialnetworkmanagerPage);
+	centralWidget->addWidget(searchenginePage);
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -291,13 +299,13 @@ void BitcoinGUI::createActions()
 	chatAction = new QAction(tr("&Chat"), this);
     chatAction->setToolTip(tr("View chat"));
     chatAction->setCheckable(true);
-	chatAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+	chatAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
 	chatAction->setProperty("objectName","chatAction");
     tabGroup->addAction(chatAction);
 
 	miningAction = new QAction(tr("&Mining"), this);
     miningAction->setToolTip(tr("Configure mining"));
-	miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+	miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     miningAction->setCheckable(true);
 	miningAction->setProperty("objectName","miningAction");
     tabGroup->addAction(miningAction);
@@ -311,11 +319,26 @@ void BitcoinGUI::createActions()
 	
 	blockAction = new QAction(tr("&Block Explorer"), this);
     blockAction->setToolTip(tr("Explore the BlockChain"));
-    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_9));
     blockAction->setCheckable(true);
     blockAction->setProperty("objectName","blockAction");
     tabGroup->addAction(blockAction);
 	
+	socialnetworkmanagerAction = new QAction(tr("&SocialNetworkManager"), this);
+    socialnetworkmanagerAction->setToolTip(tr("Social Networks Manager™"));
+    socialnetworkmanagerAction->setCheckable(true);
+	socialnetworkmanagerAction->setProperty("objectName","socialnetworkmanagerAction");
+	tabGroup->addAction(socialnetworkmanagerAction);
+	
+	searchengineAction = new QAction(tr("&SearchEngine"), this);
+    searchengineAction->setToolTip(tr("Load Anonymous Search"));
+    searchengineAction->setCheckable(true);
+	searchengineAction->setProperty("objectName","searchengineAction");
+    tabGroup->addAction(searchengineAction);  
+	
+	connect(searchengineAction, SIGNAL(triggered()), this, SLOT(gotoSearchEnginePage()));
+	connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(gotoSocialNetworkManagerPage()));
 	connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
@@ -443,8 +466,8 @@ void BitcoinGUI::createToolBars()
     _addButtonInToolbar(addressBookAction,toolbar);
 	_addButtonInToolbar(miningAction,toolbar);
 	_addButtonInToolbar(TradingAction,toolbar);
-    _addButtonInToolbar(exportAction,toolbar);
-	
+    _addButtonInToolbar(socialnetworkmanagerAction,toolbar);
+	_addButtonInToolbar(searchengineAction,toolbar);
     addToolBar(Qt::LeftToolBarArea,toolbar);
 	
 //    QToolBar *toolbar2 = new QToolBar(tr("Actions toolbar"));
@@ -940,6 +963,25 @@ void BitcoinGUI::gotoTradingPage()
   //  disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
+void BitcoinGUI::gotoSocialNetworkManagerPage()
+{
+    socialnetworkmanagerAction->setChecked(true);
+    centralWidget->setCurrentWidget(socialnetworkmanagerPage);
+
+ //   exportAction->setEnabled(false);
+//    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+
+}
+
+void BitcoinGUI::gotoSearchEnginePage()
+{
+    searchengineAction->setChecked(true);
+    centralWidget->setCurrentWidget(searchenginePage);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+
+}
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
@@ -1154,7 +1196,7 @@ void BitcoinGUI::applyTheme(QString name)
     qApp->setStyleSheet( file.readAll() );
     file.close();
 
-    setMinimumSize(1100,750);  // You can remove this line just give good idea of theme at this resolution - Yash
+    setMinimumSize(1350,750);  // You can remove this line just give good idea of theme at this resolution - Yash
 
 
 }
