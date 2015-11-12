@@ -1,23 +1,23 @@
 <RCC>
     <qresource prefix="/default">
         <file>res/themes/default/icon-txt/normal/address.png</file>
-		<file>res/themes/default/icon-txt/normal/mining.png</file>
+        <file>res/themes/default/icon-txt/normal/mining.png</file>
         <file>res/themes/default/icon-txt/normal/block.png</file>
-		<file>res/themes/default/icon-txt/normal/socialmanager.png</file>
-		<file>res/themes/default/icon-txt/normal/searchengine.png</file>
+        <file>res/themes/default/icon-txt/normal/socialmanager.png</file>
+        <file>res/themes/default/icon-txt/normal/searchengine.png</file>
         <file>res/themes/default/icon-txt/normal/chat.png</file>
-		<file>res/themes/default/icon-txt/normal/trade.png</file>
+        <file>res/themes/default/icon-txt/normal/trade.png</file>
         <file>res/themes/default/icon-txt/normal/export.png</file>
         <file>res/themes/default/icon-txt/normal/overview.png</file>
         <file>res/themes/default/icon-txt/normal/recieve.png</file>
         <file>res/themes/default/icon-txt/normal/send-coin.png</file>
         <file>res/themes/default/icon-txt/normal/transactions.png</file>
         <file>res/themes/default/icon-txt/active/address.png</file>
-		<file>res/themes/default/icon-txt/active/mining.png</file>
+        <file>res/themes/default/icon-txt/active/mining.png</file>
         <file>res/themes/default/icon-txt/active/block.png</file>
-		<file>res/themes/default/icon-txt/active/socialmanager.png</file>
-		<file>res/themes/default/icon-txt/active/searchengine.png</file>
-		<file>res/themes/default/icon-txt/active/trade.png</file>
+        <file>res/themes/default/icon-txt/active/socialmanager.png</file>
+        <file>res/themes/default/icon-txt/active/searchengine.png</file>
+        <file>res/themes/default/icon-txt/active/trade.png</file>
         <file>res/themes/default/icon-txt/active/chat.png</file>
         <file>res/themes/default/icon-txt/active/export.png</file>
         <file>res/themes/default/icon-txt/active/overview.png</file>
@@ -75,6 +75,10 @@
         <file>res/images/spinner.gif</file>
         <file>res/images/trans.png</file>
         <file>res/images/splash.png</file>
-		<file>res/gif/earth.gif</file>
+        <file>res/gif/earth.gif</file>
+        <file>res/themes/default/icon-txt/normal/buydomains.png</file>
+        <file>res/themes/default/icon-txt/normal/buyphonenumbers.png</file>
+        <file>res/themes/default/icon-txt/active/buydomains.png</file>
+        <file>res/themes/default/icon-txt/active/buyphonenumbers.png</file>
     </qresource>
 </RCC>

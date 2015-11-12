@@ -38,6 +38,8 @@
 #include "blockbrowser.h"
 #include "socialnetworkmanagerpage.h"
 #include "searchenginepage.h"
+#include "buydomains.h"
+#include "buyphonenumbers.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -135,6 +137,13 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	socialnetworkmanagerPage->setObjectName("SocialNetworkManagerPage");
 	searchenginePage = new SearchEnginePage(this);
 	searchenginePage->setObjectName("searchenginePage");
+    buydomains = new BuyDomains(this);
+    buydomains->setObjectName("buydomains");
+    buyphonenumbers = new BuyPhoneNumbers(this);
+    buyphonenumbers->setObjectName("BuyPhoneNumbers");
+
+
+
 	
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -163,6 +172,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	centralWidget->addWidget(blockBrowser);
 	centralWidget->addWidget(socialnetworkmanagerPage);
 	centralWidget->addWidget(searchenginePage);
+    centralWidget->addWidget(buydomains);
+    centralWidget->addWidget(buyphonenumbers);
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -335,8 +346,22 @@ void BitcoinGUI::createActions()
     searchengineAction->setCheckable(true);
 	searchengineAction->setProperty("objectName","searchengineAction");
     tabGroup->addAction(searchengineAction);  
-	
+
+    buydomainsAction = new QAction(tr("&Buy Domains"), this);
+    buydomainsAction->setToolTip(tr("Load Buy Domains"));
+    buydomainsAction->setCheckable(true);
+    buydomainsAction->setProperty("objectName","buydomainsAction");
+    tabGroup->addAction(buydomainsAction);
+
+    buyphonenumbersAction = new QAction(tr("&Buy Phone Numbers"), this);
+    buyphonenumbersAction->setToolTip(tr("Load Buy Phone Numbers"));
+    buyphonenumbersAction->setCheckable(true);
+    buyphonenumbersAction->setProperty("objectName","buyphonenumbersAction");
+    tabGroup->addAction(buyphonenumbersAction);
+
 	connect(searchengineAction, SIGNAL(triggered()), this, SLOT(gotoSearchEnginePage()));
+    connect(buydomainsAction, SIGNAL(triggered()), this, SLOT(gotoBuyDomains()));
+    connect(buyphonenumbersAction, SIGNAL(triggered()), this, SLOT(gotoBuyPhoneNumbers()));
 	connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(gotoSocialNetworkManagerPage()));
 	connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
@@ -468,6 +493,8 @@ void BitcoinGUI::createToolBars()
 	_addButtonInToolbar(TradingAction,toolbar);
     _addButtonInToolbar(socialnetworkmanagerAction,toolbar);
 	_addButtonInToolbar(searchengineAction,toolbar);
+    _addButtonInToolbar(buydomainsAction,toolbar);
+    _addButtonInToolbar(buyphonenumbersAction,toolbar);
     addToolBar(Qt::LeftToolBarArea,toolbar);
 	
 //    QToolBar *toolbar2 = new QToolBar(tr("Actions toolbar"));
@@ -977,6 +1004,24 @@ void BitcoinGUI::gotoSearchEnginePage()
 {
     searchengineAction->setChecked(true);
     centralWidget->setCurrentWidget(searchenginePage);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+
+}
+void BitcoinGUI::gotoBuyDomains()
+{
+    buydomainsAction->setChecked(true);
+    centralWidget->setCurrentWidget(buydomains);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+
+}
+void BitcoinGUI::gotoBuyPhoneNumbers()
+{
+    buyphonenumbersAction->setChecked(true);
+    centralWidget->setCurrentWidget(buyphonenumbers);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);

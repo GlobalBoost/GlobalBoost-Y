@@ -22,6 +22,8 @@ class MiningPage;
 class tradingDialog;
 class SocialNetworkManagerPage;
 class SearchEnginePage;
+class BuyDomains;
+class BuyPhoneNumbers;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -81,6 +83,8 @@ private:
 	tradingDialog   *tradingDialogPage;
 	SocialNetworkManagerPage *socialnetworkmanagerPage;
 	SearchEnginePage *searchenginePage;
+    BuyDomains *buydomains;
+    BuyPhoneNumbers *buyphonenumbers;
 	
     QLabel *labelEncryptionIcon;
 	QLabel *labelMiningIcon;
@@ -96,6 +100,8 @@ private:
 	QAction *blockAction;
 	QAction *socialnetworkmanagerAction;
 	QAction *searchengineAction;
+    QAction *buydomainsAction;
+    QAction *buyphonenumbersAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -198,6 +204,8 @@ private slots:
     void gotoTradingPage();
 	void gotoSocialNetworkManagerPage();
 	void gotoSearchEnginePage();
+    void gotoBuyDomains();
+    void gotoBuyPhoneNumbers();
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */

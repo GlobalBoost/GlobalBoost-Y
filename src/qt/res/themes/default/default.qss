@@ -1242,7 +1242,22 @@ QToolBar:vertical QPushButton#searchengineAction:checked
 {
     background: url(":/default/res/themes/default/icon-txt/active/searchengine.png") no-repeat left 0 transparent; 
 }
-
+QToolBar:vertical QPushButton#buydomainsAction
+{
+    background: url(":/default/res/themes/default/icon-txt/normal/buydomains.png") no-repeat left 0 transparent; 
+}
+QToolBar:vertical QPushButton#buydomainsAction:checked
+{
+    background: url(":/default/res/themes/default/icon-txt/active/buydomains.png") no-repeat left 0 transparent; 
+}
+QToolBar:vertical QPushButton#buyphonenumbersAction
+{
+    background: url(":/default/res/themes/default/icon-txt/normal/buyphonenumbers.png") no-repeat left 0 transparent; 
+}
+QToolBar:vertical QPushButton#buyphonenumbersAction:checked
+{
+    background: url(":/default/res/themes/default/icon-txt/active/buyphonenumbers.png") no-repeat left 0 transparent; 
+}
 QToolBar:vertical QPushButton#exportAction
 {
     background: url(":/default/res/themes/default/icon-txt/normal/export.png") no-repeat left 0 transparent; 
