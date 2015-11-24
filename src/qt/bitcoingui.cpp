@@ -566,6 +566,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         signVerifyMessageDialog->setModel(walletModel);
 		miningPage->setModel(clientModel);
 		blockBrowser->setModel(clientModel);
+		tradingDialogPage->setModel(walletModel);
 		
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));

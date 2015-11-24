@@ -1,7 +1,10 @@
 #include "tradingdialog.h"
 #include "ui_tradingdialog.h"
+#include "clientmodel.h"
+#include "walletmodel.h"
 #include <qmessagebox.h>
 #include <qtimer.h>
+#include <bitcoinrpc.h>
 
 #include <QDebug>
 #include <QNetworkAccessManager>
@@ -16,6 +19,7 @@
 #include <QJsonObject>
 #include <QVariantMap>
 #include <QJsonArray>
+#include <QTime>
 
 #include <openssl/hmac.h>
 
@@ -23,7 +27,8 @@ using namespace std;
 
 tradingDialog::tradingDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::tradingDialog)
+    ui(new Ui::tradingDialog),
+    model(0)
 {
     ui->setupUi(this);
     timerid = 0;
@@ -35,6 +40,8 @@ tradingDialog::tradingDialog(QWidget *parent) :
     ui->BuyCostLabel->setPalette(sample_palette);
     ui->SellCostLabel->setPalette(sample_palette);
     ui->BSTYAvailableLabel->setPalette(sample_palette);
+    ui->BSTYAvailableLabel_2->setPalette(sample_palette);
+    ui->BSTYAvailableLabel_3->setPalette(sample_palette);
     ui->BtcAvailableLbl_2->setPalette(sample_palette);
     //Set tabs to inactive
     ui->TradingTabWidget->setTabEnabled(0,false);
@@ -207,6 +214,23 @@ QString tradingDialog::SellBSTY(QString OrderType, double Quantity, double Rate)
     return Response;
 }
 
+QString tradingDialog::Withdraw(double Amount, QString Address, QString Coin){
+
+    QString str = "";
+    QString URL = "https://bittrex.com/api/v1.1/account/withdraw?apikey=";
+            URL += this->ApiKey;
+            URL += "&currency=";
+            URL += Coin;
+            URL += "&quantity=";
+            URL += str.number(Amount,'i',8);
+            URL += "&address=";
+            URL += Address;
+            URL += "&nonce=12345434";
+
+    QString Response = sendRequest(URL);
+     return Response;
+}
+
 QString tradingDialog::GetOpenOrders(){
     QString URL = "https://bittrex.com/api/v1.1/market/getopenorders?apikey=";
             URL += this->ApiKey;
@@ -358,7 +382,9 @@ void tradingDialog::ParseAndPopulateOpenOrdersTable(QString Response){
             CancelCell= ui->OpenOrdersTable->item(itteration, 14);    //Set the wtablewidget item to the cancel cell item.
             CancelCell->setForeground(QColor::fromRgb(255,0,0));      //make this item red.
             CancelCell->setTextAlignment(Qt::AlignCenter);
+            itteration++;
             }
+            obj.empty();
 }
 
 
@@ -545,17 +571,22 @@ void tradingDialog::ActionsOnSwitch(int index = -1){
                            if(Response.size() > 0 && Response != "Error"){
 
                                QString balance = GetBalance("BTC");
+                               QString BSTYbalance = GetBalance("BSTY");
 
                                QString str;
+                               QString BSTYstr;
+
                                QJsonObject ResultObject =  GetResultObjectFromJSONObject(balance);
+                               QJsonObject BSTYResultObject =  GetResultObjectFromJSONObject(BSTYbalance);
 
                                ui->BtcAvailableLbl->setText(str.number(ResultObject["Available"].toDouble(),'i',8));
+                               ui->BSTYAvailableLabel->setText(BSTYstr.number(BSTYResultObject["Available"].toDouble(),'i',8));
                              }
 
                 break;
 
-                case 1: //sell tab active
-                                   //Sell tab is active
+                case 1: //Cross send tab active
+                                   //Cross send tab is active
                                    Response = GetMarketSummary();
                                    if(Response.size() > 0 && Response != "Error"){
 
@@ -563,7 +594,7 @@ void tradingDialog::ActionsOnSwitch(int index = -1){
                                        QString str;
                                        QJsonObject ResultObject =  GetResultObjectFromJSONObject(balance);
 
-                                       ui->BSTYAvailableLabel->setText(str.number(ResultObject["Available"].toDouble(),'i',8));
+                                       ui->BSTYAvailableLabel_3->setText(str.number(ResultObject["Available"].toDouble(),'i',8));
                                      }
 
                 break;
@@ -607,7 +638,7 @@ void tradingDialog::ActionsOnSwitch(int index = -1){
                          Response = GetBalance("BSTY");
 
                        if(Response.size() > 0 && Response != "Error"){
-                         DisplayBalance(*ui->BSTYBalanceLabel,*ui->BSTYAvailableLabel,*ui->BSTYPendingLabel, QString::fromUtf8("BSTY"),Response);
+                         DisplayBalance(*ui->BSTYBalanceLabel,*ui->BSTYAvailableLabel_2,*ui->BSTYPendingLabel, QString::fromUtf8("BSTY"),Response);
                         }
                 break;
 
@@ -705,6 +736,60 @@ void tradingDialog::CalculateSellCostLabel(){
     ui->SellCostLabel->setText(Str.number(cost,'i',8));
 }
 
+void tradingDialog::CalculateCSReceiveLabel(){
+
+    //calculate amount of currency than can be transferred to bitcoin
+    QString balance = GetBalance("BSTY");
+    QString buyorders = GetOrderBook();
+
+    QJsonObject BuyObject = GetResultObjectFromJSONObject(buyorders);
+    QJsonObject BalanceObject =  GetResultObjectFromJSONObject(balance);
+    QJsonObject obj;
+
+    double AvailableBSTY = BalanceObject["Available"].toDouble();
+    double Quantity = ui->CSUnitsInput->text().toDouble();
+    double Received = 0;
+    double Qty = 0;
+    double Price = 0;
+    QJsonArray  BuyArray  = BuyObject.value("buy").toArray();                //get buy/sell object from result object
+
+    // For each buy order
+    foreach (const QJsonValue & value, BuyArray)
+    {
+        obj = value.toObject();
+
+        double x = obj["Rate"].toDouble(); //would like to use int64 here
+        double y = obj["Quantity"].toDouble();
+        // If
+        if ( ((Quantity / x) - y) > 0 )
+        {
+            Price = x;
+            Received += ((Price * y) - ((Price * y / 100) * 0.25));
+            Qty += y;
+            Quantity -= ((Price * y) - ((Price * y / 100) * 0.25));
+        } else {
+            Price = x;
+            Received += ((Price * (Quantity / x)) - ((Price * (Quantity / x) / 100) * 0.25));
+            Qty += (Quantity / x);
+            Quantity -= 0;
+            break;
+        }
+    }
+
+    QString ReceiveStr = "";
+    QString DumpStr = "";
+    if ( Qty < AvailableBSTY )
+    {
+        ui->CSReceiveLabel->setText(ReceiveStr.number((ui->CSUnitsInput->text().toDouble() - 0.0002),'i',8));
+        ui->CSDumpLabel->setText(DumpStr.number(Price,'i',8));
+    } else {
+        ReceiveStr = "N/A";
+        DumpStr = "N/A";
+        ui->CSReceiveLabel->setText(ReceiveStr);
+        ui->CSDumpLabel->setText(DumpStr);
+    }
+}
+
 void tradingDialog::on_UpdateKeys_clicked()
 {
   this->ApiKey    = ui->ApiKeyInput->text();
@@ -720,6 +805,7 @@ void tradingDialog::on_UpdateKeys_clicked()
          QMessageBox::information(this,"API Configuration Complete","Api connection has been successfully configured and tested.");
          ui->ApiKeyInput->setEchoMode(QLineEdit::Password);
          ui->SecretKeyInput->setEchoMode(QLineEdit::Password);
+         ui->PasswordInput->setText("");
          ui->TradingTabWidget->setTabEnabled(0,true);
          ui->TradingTabWidget->setTabEnabled(1,true);
          ui->TradingTabWidget->setTabEnabled(3,true);
@@ -727,6 +813,94 @@ void tradingDialog::on_UpdateKeys_clicked()
          ui->TradingTabWidget->setTabEnabled(5,true);
          ui->TradingTabWidget->setTabEnabled(6,true);
   }
+
+}
+
+string tradingDialog::encryptDecrypt(string toEncrypt, string password) {
+
+    char * key = new char [password.size()+1];
+    std::strcpy (key, password.c_str());
+    key[password.size()] = '\0'; // don't forget the terminating 0
+
+    string output = toEncrypt;
+
+    for (unsigned int i = 0; i < toEncrypt.size(); i++)
+        output[i] = toEncrypt[i] ^ key[i % (sizeof(key) / sizeof(char))];
+    return output;
+}
+
+void tradingDialog::on_SaveKeys_clicked()
+{
+    bool fSuccess = true;
+    boost::filesystem::path pathConfigFile = GetDataDir() / "APIcache.txt";
+    boost::filesystem::ofstream stream (pathConfigFile.string(), ios::out | ios::trunc);
+
+    // Qstring to string
+    string password = ui->PasswordInput->text().toUtf8().constData();
+
+    if (password.length() <= 6){
+        QMessageBox::information(this,"Error !","Your password is too short !");
+        fSuccess = false;
+        stream.close();
+    }
+
+    // qstrings to utf8, add to byteArray and convert to const char for stream
+    string Secret = ui->SecretKeyInput->text().toUtf8().constData();
+    string Key = ui->ApiKeyInput->text().toUtf8().constData();
+    string ESecret = "";
+    string EKey = "";
+
+    if (stream.is_open() && fSuccess)
+    {
+        ESecret = encryptDecrypt(Secret, password);
+        EKey = encryptDecrypt(Key, password);
+        stream << ESecret << '\n';
+        stream << EKey;
+        stream.close();
+    }
+    if (fSuccess) {
+        QMessageBox::information(this,"Success !","Saved keys successfully to APIcache.txt");
+    }
+
+}
+
+void tradingDialog::on_LoadKeys_clicked()
+{
+    bool fSuccess = true;
+    boost::filesystem::path pathConfigFile = GetDataDir() / "APIcache.txt";
+    boost::filesystem::ifstream stream (pathConfigFile.string());
+
+    // Qstring to string
+    string password = ui->PasswordInput->text().toUtf8().constData();
+
+    if (password.length() <= 6){
+        QMessageBox::information(this,"Error !","Your password is too short !");
+        fSuccess = false;
+        stream.close();
+    }
+
+    QString DSecret = "";
+    QString DKey = "";
+
+    if (stream.is_open() && fSuccess)
+    {
+        int i =0;
+        for ( std::string line; std::getline(stream,line); )
+        {
+            if (i == 0 ){
+                DSecret = QString::fromUtf8(encryptDecrypt(line, password).c_str());
+                ui->SecretKeyInput->setText(DSecret);
+            } else if (i == 1){
+                DKey = QString::fromUtf8(encryptDecrypt(line, password).c_str());
+                ui->ApiKeyInput->setText(DKey);
+            }
+            i++;
+        }
+        stream.close();
+    }
+    if (fSuccess) {
+        QMessageBox::information(this,"Success !","Loaded keys successfully from APIcache.txt");
+    }
 
 }
 
@@ -770,6 +944,63 @@ void tradingDialog::on_Buy_Max_Amount_clicked()
 
     Result = Result - percentofnumber;
     ui->UnitsInput->setText(str.number(Result,'i',8));
+}
+
+void tradingDialog::on_CS_Max_Amount_clicked()
+{
+    double Quantity = ui->BSTYAvailableLabel_3->text().toDouble();
+    double Received = 0;
+    double Qty = 0;
+    double Price = 0;
+    QString buyorders = GetOrderBook();
+    QJsonObject BuyObject = GetResultObjectFromJSONObject(buyorders);
+    QJsonObject obj;
+    QString str;
+
+    QJsonArray  BuyArray  = BuyObject.value("buy").toArray();                //get buy/sell object from result object
+
+    // For each buy order
+    foreach (const QJsonValue & value, BuyArray)
+    {
+        obj = value.toObject();
+
+        double x = obj["Rate"].toDouble(); //would like to use int64 here
+        double y = obj["Quantity"].toDouble();
+        // If
+        if ( (Quantity - y) > 0 )
+        {
+            Price = x;
+            Received += ((Price * y) - ((Price * y / 100) * 0.25));
+            Qty += y;
+            Quantity -= y;
+
+        } else {
+            Price = x;
+            Received += ((Price * Quantity) - ((Price * Quantity / 100) * 0.25));
+            Qty += Quantity;
+
+            if ((Quantity * x) < 0.00055){
+                Quantity = (0.00055 / x);
+            }
+
+            break;
+        }
+    }
+
+    ui->CSUnitsInput->setText(str.number(Received,'i',8));
+}
+
+void tradingDialog::on_Withdraw_Max_Amount_clicked()
+{
+    //calculate amount of currency than can be brought with the BTC balance available
+    QString responseA = GetBalance("BSTY");
+    QString str;
+
+    QJsonObject ResultObject =  GetResultObjectFromJSONObject(responseA);
+
+    double AvailableBSTY = ResultObject["Available"].toDouble();
+
+    ui->WithdrawUnitsInput->setText(str.number(AvailableBSTY,'i',8));
 }
 
 void tradingDialog::on_buyOrdertypeCombo_activated(const QString &arg1)
@@ -831,14 +1062,15 @@ QString tradingDialog::HMAC_SHA512_SIGNER(QString UrlToSign, QString Secret){
     QByteArray byteArrayB = Secret.toUtf8();
     const char* Secretkey = byteArrayB.constData();
 
-    unsigned char* digest;
+    const EVP_MD *md = EVP_sha512();
+    unsigned char* digest = NULL;
 
     // Using sha512 hash engine here.
-    digest = HMAC(EVP_sha512(),  Secretkey, strlen( Secretkey), (unsigned char*) URL, strlen( URL), NULL, NULL);
+    digest = HMAC(md,  Secretkey, strlen( Secretkey), (unsigned char*) URL, strlen( URL), NULL, NULL);
 
     // Be careful of the length of string with the choosen hash engine. SHA1 produces a 20-byte hash value which rendered as 40 characters.
     // Change the length accordingly with your choosen hash engine
-    char mdString[128];
+    char mdString[129] = { 0 };
 
     for(int i = 0; i < 64; i++){
         sprintf(&mdString[i*2], "%02x", (unsigned int)digest[i]);
@@ -956,6 +1188,155 @@ void tradingDialog::on_SellBSTYBTN_clicked()
      }
 }
 
+void tradingDialog::on_CSUnitsBtn_clicked()
+{
+    double Quantity = ui->CSUnitsInput->text().toDouble();
+    double Rate = ui->CSDumpLabel->text().toDouble();
+    double Received = 0;
+    double Qty = 0;
+    double Price = 0;
+    double Add = 0;
+    QString buyorders = GetOrderBook();
+    QJsonObject BuyObject = GetResultObjectFromJSONObject(buyorders);
+    QJsonObject obj;
+    QString Astr;
+    QString Qstr;
+    QString Rstr;
+    QString Coin = "BTC";
+    QString Msg = "Are you sure you want to Send ";
+            Msg += Qstr.number((Quantity - 0.0002),'i',8);
+            Msg += " BTC to ";
+            Msg += ui->CSUnitsAddress->text();
+            Msg += ", DUMPING your coins at ";
+            Msg += Rstr.number(Rate,'i',8);
+            Msg += " satoshis ?";
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,"Cross-Send",Msg,QMessageBox::Yes|QMessageBox::No);
+
+    if(reply != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    WalletModel::UnlockContext ctx(model->requestUnlock());
+    if(!ctx.isValid())
+    {
+        // Unlock wallet was cancelled
+        return;
+    }
+
+        QString Order = "selllimit";
+        QJsonArray  BuyArray  = BuyObject.value("buy").toArray();                //get buy/sell object from result object
+
+        // For each buy order
+        foreach (const QJsonValue & value, BuyArray)
+        {
+            obj = value.toObject();
+
+            double x = obj["Rate"].toDouble(); //would like to use int64 here
+            double y = obj["Quantity"].toDouble();
+            // If
+            if ( ((Quantity / x) - y) > 0 )
+            {
+                Price = x;
+                Received += ((Price * y) - ((Price * y / 100) * 0.25));
+                Qty += y;
+                Quantity -= ((Price * y) - ((Price * y / 100) * 0.25));
+
+                QString SellResponse = SellBSTY(Order,y,x);
+                QJsonDocument SelljsonResponse = QJsonDocument::fromJson(SellResponse.toUtf8());          //get json from str.
+                QJsonObject SellResponseObject = SelljsonResponse.object();                              //get json obj
+
+                if (SellResponseObject["success"].toBool() == false){
+                    if (SellResponseObject["message"] == "DUST_TRADE_DISALLOWED_MIN_VALUE_50K_SAT"){
+                        Add = y;
+                        continue;
+                    }
+                    QMessageBox::information(this,"sFailed",SellResponse);
+                    break;
+                }
+                MilliSleep(100);
+
+            } else {
+                Price = x;
+                Received += ((Price * (Quantity / x)) - ((Price * (Quantity / x) / 100) * 0.25));
+                Qty += (Quantity / x);
+                Quantity += (Add / x);
+                if (Quantity < 0.00055){
+                    Quantity = 0.00055;
+                }
+                QString SellResponse = SellBSTY(Order,(Quantity / x),x);
+                QJsonDocument SelljsonResponse = QJsonDocument::fromJson(SellResponse.toUtf8());          //get json from str.
+                QJsonObject SellResponseObject = SelljsonResponse.object();                              //get json obj
+
+                if (SellResponseObject["success"].toBool() == false){
+                    QMessageBox::information(this,"sFailed",SellResponse);
+
+                } else if (SellResponseObject["success"].toBool() == true){
+                    MilliSleep(7500);
+                    QString Response = Withdraw(ui->CSUnitsInput->text().toDouble(),ui->CSUnitsAddress->text(),Coin);
+                    QJsonDocument jsonResponse = QJsonDocument::fromJson(Response.toUtf8());          //get json from str.
+                    QJsonObject ResponseObject = jsonResponse.object();                              //get json obj
+
+                    if (ResponseObject["success"].toBool() == false){
+                        MilliSleep(5000);
+                        QString Response = Withdraw(ui->CSUnitsInput->text().toDouble(),ui->CSUnitsAddress->text(),Coin);
+                        QJsonDocument jsonResponse = QJsonDocument::fromJson(Response.toUtf8());          //get json from str.
+                        QJsonObject ResponseObject = jsonResponse.object();
+
+                        if (ResponseObject["success"].toBool() == false){
+                            QMessageBox::information(this,"Failed",ResponseObject["message"].toString());
+                        } else if (ResponseObject["success"].toBool() == true){
+                            QMessageBox::information(this,"Success","<center>Cross-Send Successful</center>\n Sold "+Astr.number(Qty,'i',4)+" BSTY for "+Qstr.number((ui->CSUnitsInput->text().toDouble()-0.0002),'i',8)+" BTC");
+                        }
+                    } else if (ResponseObject["success"].toBool() == true){
+                        QMessageBox::information(this,"Success","<center>Cross-Send Successful</center>\n Sold "+Astr.number(Qty,'i',4)+" BSTY for "+Qstr.number((ui->CSUnitsInput->text().toDouble()-0.0002),'i',8)+" BTC");
+
+                    }
+                }
+                break;
+            }
+        }
+}
+
+void tradingDialog::on_WithdrawUnitsBtn_clicked()
+{
+    double Quantity = ui->WithdrawUnitsInput->text().toDouble();
+    QString Qstr;
+    QString Coin = "BSTY";
+    QString Msg = "Are you sure you want to Withdraw ";
+            Msg += Qstr.number((Quantity - 0.02),'i',8);
+            Msg += " BSTY to ";
+            Msg += ui->WithdrawAddress->text();
+            Msg += " ?";
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,"Withdraw",Msg,QMessageBox::Yes|QMessageBox::No);
+
+    if(reply != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    WalletModel::UnlockContext ctx(model->requestUnlock());
+    if(!ctx.isValid())
+    {
+        // Unlock wallet was cancelled
+        return;
+    }
+
+        QString Response =  Withdraw(Quantity, ui->WithdrawAddress->text(), Coin);
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(Response.toUtf8());          //get json from str.
+        QJsonObject  ResponseObject = jsonResponse.object();                              //get json obj
+
+        if (ResponseObject["success"].toBool() == false){
+            QMessageBox::information(this,"Failed",ResponseObject["message"].toString());
+
+        }else if (ResponseObject["success"].toBool() == true){
+            QMessageBox::information(this,"Success","Withdrawal Successful !");
+        }
+}
 
 void tradingDialog::on_AdvancedView_stateChanged(int arg1)
 {
@@ -996,8 +1377,17 @@ void tradingDialog::on_SellBidPriceEdit_textChanged(const QString &arg1)
      CalculateSellCostLabel();
 }
 
+void tradingDialog::on_CSUnitsInput_textChanged(const QString &arg1)
+{
+    CalculateCSReceiveLabel(); //update cost
+}
+
+void tradingDialog::setModel(WalletModel *model)
+{
+    this->model = model;
+}
+
 tradingDialog::~tradingDialog()
 {
     delete ui;
 }
-

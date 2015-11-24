@@ -202,10 +202,10 @@ void MiningPage::loadSettings()
     ui->scantimeBox->setValue(model->getMiningScanTime());
     
    // ui->serverLine->setText(model->getMiningServer());
-	ui->serverLine->setText("stratum2.minerpools.com");
+	ui->serverLine->setText("cat.e-pool.net");
     
    // ui->portLine->setText(model->getMiningPort());
-	ui->portLine->setText("4802");
+	ui->portLine->setText("9993");
     
     ui->usernameLine->setText(model->getMiningUsername());
     
