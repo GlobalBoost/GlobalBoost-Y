@@ -6,6 +6,11 @@
 #include <QObject>
 #include <stdint.h>
 #include "ui_tradingdialog.h"
+#include "clientmodel.h"
+#include "walletmodel.h"
+
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -13,6 +18,7 @@
 namespace Ui {
 class tradingDialog;
 }
+class WalletModel;
 
 class tradingDialog : public QDialog
 {
@@ -21,6 +27,9 @@ class tradingDialog : public QDialog
 public:
     explicit tradingDialog(QWidget *parent = 0);
     ~tradingDialog();
+
+    void setModel(WalletModel *model);
+
 private slots:
 
     void InitTrading();
@@ -37,6 +46,8 @@ private slots:
     void ActionsOnSwitch(int index);
     void CancelOrderSlot(int row, int col);
     void on_UpdateKeys_clicked();
+    void on_LoadKeys_clicked();
+    void on_SaveKeys_clicked();
     void on_GenDepositBTN_clicked();
     void on_Buy_Max_Amount_clicked();
     void on_buyOrdertypeCombo_activated(const QString &arg1);
@@ -49,14 +60,25 @@ private slots:
     void on_Sell_Max_Amount_clicked();
     void on_UnitsInputBSTY_textChanged(const QString &arg1);
     void on_SellBidPriceEdit_textChanged(const QString &arg1);
+
+    void CalculateCSReceiveLabel();
+    void on_CSUnitsInput_textChanged(const QString &arg1);
+    void on_CSUnitsBtn_clicked();
+    void on_CS_Max_Amount_clicked();
+
+    void on_Withdraw_Max_Amount_clicked();
+    void on_WithdrawUnitsBtn_clicked();
+
     void on_AdvancedView_stateChanged(int arg1);
 
     int SetExchangeInfoTextLabels();
 
+    string encryptDecrypt(string toEncrypt, string password);
     QString BittrexTimeStampToReadable(QString DateTime);
     QString CancelOrder(QString Orderid);
     QString BuyBSTY(QString OrderType, double Quantity, double Rate);
     QString SellBSTY(QString OrderType, double Quantity, double Rate);
+    QString Withdraw(double Amount, QString Address, QString Coin);
     QString GetMarketHistory();
     QString GetMarketSummary();
     QString GetOrderBook();
@@ -80,7 +102,7 @@ private:
     QTimer *timer;
     QString ApiKey;
     QString SecretKey;
-
+    WalletModel *model;
 
 };
 
