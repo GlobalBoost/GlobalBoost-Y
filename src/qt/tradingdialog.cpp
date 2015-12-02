@@ -115,9 +115,12 @@ tradingDialog::tradingDialog(QWidget *parent) :
 
     /*populate static combo values*/
     ui->BuyBidcomboBox   -> addItems(QStringList()<<"Last"<<"Bid"<<"Ask");
-    ui->buyOrdertypeCombo-> addItems(QStringList()<<"Limit"<<"Market");
+    //ui->buyOrdertypeCombo-> addItems(QStringList()<<"Limit"<<"Market");
+    ui->buyOrdertypeCombo->hide();
     ui->SellBidcomboBox  -> addItems(QStringList()<<"Last"<<"Bid"<<"Ask");
-    ui->SellOrdertypeCombo-> addItems(QStringList()<<"Limit"<<"Market");
+    //ui->SellOrdertypeCombo-> addItems(QStringList()<<"Limit"<<"Market");
+    ui->SellOrdertypeCombo->hide();
+    ui->OrderTypeL->hide();
     //ui->BuyTimeInForceCombo-> addItems(QStringList()<<"Good 'Til Cancelled"<<"Immediate Or Cancel");
     //ui->BuyConditionCombo->   addItems(QStringList()<<"Greater Than Or Equal To"<<"Less Than Or Equal To");
     //ui->BuyConditionCombo->hide();
@@ -860,6 +863,7 @@ void tradingDialog::on_SaveKeys_clicked()
     }
     if (fSuccess) {
         QMessageBox::information(this,"Success !","Saved keys successfully to APIcache.txt");
+        on_UpdateKeys_clicked();
     }
 
 }
@@ -900,6 +904,7 @@ void tradingDialog::on_LoadKeys_clicked()
     }
     if (fSuccess) {
         QMessageBox::information(this,"Success !","Loaded keys successfully from APIcache.txt");
+        on_UpdateKeys_clicked();
     }
 
 }
@@ -979,8 +984,8 @@ void tradingDialog::on_CS_Max_Amount_clicked()
             Received += ((Price * Quantity) - ((Price * Quantity / 100) * 0.25));
             Qty += Quantity;
 
-            if ((Quantity * x) < 0.00055){
-                Quantity = (0.00055 / x);
+            if ((Quantity * x) < 0.00051){
+                Quantity = (0.00051 / x);
             }
 
             break;
@@ -1113,7 +1118,7 @@ void tradingDialog::on_BuyBSTY_clicked()
     Rate     = ui->BuyBidPriceEdit->text().toDouble();
     Quantity = ui->UnitsInput->text().toDouble();
 
-    QString OrderType = ui->buyOrdertypeCombo->currentText();
+    QString OrderType = "Limit";
     QString Order;
 
     if(OrderType == "Limit"){Order = "buylimit";}else if (OrderType == "Market"){ Order = "buymarket";}
@@ -1155,7 +1160,7 @@ void tradingDialog::on_SellBSTYBTN_clicked()
     Rate     = ui->SellBidPriceEdit->text().toDouble();
     Quantity = ui->UnitsInputBSTY->text().toDouble();
 
-    QString OrderType = ui->SellOrdertypeCombo->currentText();
+    QString OrderType = "Limit";
     QString Order;
 
     if(OrderType == "Limit"){Order = "selllimit";}else if (OrderType == "Market"){ Order = "sellmarket";}
@@ -1250,7 +1255,7 @@ void tradingDialog::on_CSUnitsBtn_clicked()
 
                 if (SellResponseObject["success"].toBool() == false){
                     if (SellResponseObject["message"] == "DUST_TRADE_DISALLOWED_MIN_VALUE_50K_SAT"){
-                        Add = y;
+                        Add += y;
                         continue;
                     }
                     QMessageBox::information(this,"sFailed",SellResponse);
@@ -1262,9 +1267,9 @@ void tradingDialog::on_CSUnitsBtn_clicked()
                 Price = x;
                 Received += ((Price * (Quantity / x)) - ((Price * (Quantity / x) / 100) * 0.25));
                 Qty += (Quantity / x);
-                Quantity += (Add / x);
-                if (Quantity < 0.00055){
-                    Quantity = 0.00055;
+                Quantity += (Add * x);
+                if (Quantity < 0.00051){
+                    Quantity = 0.00051;
                 }
                 QString SellResponse = SellBSTY(Order,(Quantity / x),x);
                 QJsonDocument SelljsonResponse = QJsonDocument::fromJson(SellResponse.toUtf8());          //get json from str.
