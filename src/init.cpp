@@ -176,7 +176,11 @@ bool AppInit(int argc, char* argv[])
             Shutdown();
         }
         ReadConfigFile(mapArgs, mapMultiArgs);
-
+        //FIX
+// std::cout << "user=" << mapArgs["-rpcuser"] << endl;
+// std::cout << "passswd=" << mapArgs["-rpcpassword"] << endl;
+// std::cout << "server=" << mapArgs["-server"] << endl;
+// std::cout << "daemon=" << mapArgs["-daemon"] << endl;
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
             // First part of help message is specific to globalboostyd / RPC client
