@@ -3,8 +3,8 @@ Globalboost integration/staging tree
 
 https://bst.globalboo.st/
 
-Copyright (c) 2009-2013 Bitcoin Developers
-Copyright (c) 2014 GlobalBoost®
+Copyright (c) 2009-2019 Bitcoin Developers
+Copyright (c) 2019 GlobalBoost®
 
 What is Globalboost?
 ----------------

@@ -1,0 +1,9 @@
+.vscode
+build
+debug
+release
+*.Debug
+*.Release
+Makefile
+*.o
+*.moc
