@@ -17,13 +17,6 @@ class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
 class ActionButton;
-class ChatWindow;
-class MiningPage;
-class tradingDialog;
-class SocialNetworkManagerPage;
-class SearchEnginePage;
-class BuyDomains;
-class BuyPhoneNumbers;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -56,7 +49,6 @@ public:
         functionality.
     */
 	void RunMiningAsStartup();
-//	void SetMiningStatus(bool isMining);
     void setWalletModel(WalletModel *walletModel);
 
 protected:
@@ -78,13 +70,6 @@ private:
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-	ChatWindow *chatWindow;
-	MiningPage *miningPage;
-	tradingDialog   *tradingDialogPage;
-	SocialNetworkManagerPage *socialnetworkmanagerPage;
-	SearchEnginePage *searchenginePage;
-    BuyDomains *buydomains;
-    BuyPhoneNumbers *buyphonenumbers;
 	
     QLabel *labelEncryptionIcon;
 	QLabel *labelMiningIcon;
@@ -95,13 +80,7 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-    QAction *chatAction;
-	QAction *miningAction;
 	QAction *blockAction;
-	QAction *socialnetworkmanagerAction;
-	QAction *searchengineAction;
-    QAction *buydomainsAction;
-    QAction *buyphonenumbersAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -120,7 +99,6 @@ private:
     QAction *lockWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
-	QAction *TradingAction;
 	
     ActionButton* actionButton;
 
@@ -130,7 +108,8 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
-
+    int spinnerFrame;
+    
     /** Create the main UI actions. */
     void createActions();
     /** Create the menu bar and sub-menus. */
@@ -187,8 +166,6 @@ private slots:
     void gotoOverviewPage();
 	/** Switch to block explorer*/
     void gotoBlockBrowser();
-	/** Switch to mining page */
-    void gotoMiningPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -198,14 +175,6 @@ private slots:
     /** Switch to send coins page */
     void gotoSendCoinsPage();
 
-	/** Switch to chat page */
-	void gotoChatPage();
-	/** Switch to trading page */
-    void gotoTradingPage();
-	void gotoSocialNetworkManagerPage();
-	void gotoSearchEnginePage();
-    void gotoBuyDomains();
-    void gotoBuyPhoneNumbers();
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */

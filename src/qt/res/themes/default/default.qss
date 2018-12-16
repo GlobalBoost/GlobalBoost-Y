@@ -1125,17 +1125,26 @@ QToolBar{
 
 
 QToolBar:vertical{
-    margin: 0 0px; 
-    padding:0px;
-	margin-left:25px;
+    margin: 4px 0 0 0; 
+    padding: 30px 0px 0px 0;
+	margin-left:5px;
     background: url(:/default/res/themes/default/leftbar/bg-menu.png) no-repeat left middle transparent;
     width: 293px;
 }
 QToolBar:vertical QPushButton
 {
+    /*
     height: 40px;
     width: 140px;
     margin-left:25px;
+    border-image:none;
+    padding: 0px 50px 0px 30px;
+    border: 0px solid #fff;
+    font-size: 14px;
+    */
+    height: 72px;
+    width: 140px;
+    margin-left:5px;
     border-image:none;
     padding: 0px 50px 0px 30px;
     border: 0px solid #fff;

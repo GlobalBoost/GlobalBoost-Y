@@ -12,7 +12,6 @@
 #include "optionsdialog.h"
 #include "aboutdialog.h"
 #include "clientmodel.h"
-#include "miningpage.h"
 #include "walletmodel.h"
 #include "editaddressdialog.h"
 #include "optionsmodel.h"
@@ -33,13 +32,7 @@
 #include "wallet.h"
 #include "ActionButton.h"
 #include "header.h"
-#include "chatwindow.h"
-#include "tradingdialog.h"
 #include "blockbrowser.h"
-#include "socialnetworkmanagerpage.h"
-#include "searchenginepage.h"
-#include "buydomains.h"
-#include "buyphonenumbers.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -99,9 +92,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     aboutQtAction(0),
     trayIcon(0),
     notificator(0),
-    rpcConsole(0)
+    rpcConsole(0),
+    spinnerFrame(0)
 {
-    resize(1100, 550);
+    resize(980, 650);
     setWindowTitle(tr("GlobalBoost") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
@@ -127,23 +121,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create tabs
     overviewPage = new OverviewPage();
-    chatWindow = new ChatWindow(this);
-	chatWindow->setObjectName("ChatWindow");
-	miningPage = new MiningPage(this);
-	miningPage->setObjectName("miningPage");
 	blockBrowser = new BlockBrowser;
     blockBrowser->setObjectName("BlockBrowser");
-	socialnetworkmanagerPage = new SocialNetworkManagerPage(this);
-	socialnetworkmanagerPage->setObjectName("SocialNetworkManagerPage");
-	searchenginePage = new SearchEnginePage(this);
-	searchenginePage->setObjectName("searchenginePage");
-    buydomains = new BuyDomains(this);
-    buydomains->setObjectName("buydomains");
-    buyphonenumbers = new BuyPhoneNumbers(this);
-    buyphonenumbers->setObjectName("BuyPhoneNumbers");
-
-
-
 	
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -156,8 +135,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     receiveCoinsPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::ReceivingTab);
 
     sendCoinsPage = new SendCoinsDialog(this);
-	tradingDialogPage = new tradingDialog(this);
-	tradingDialogPage->setObjectName("tradingDialog");
     signVerifyMessageDialog = new SignVerifyMessageDialog(this);
 
     centralWidget = new QStackedWidget(this);
@@ -165,15 +142,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(transactionsPage);
     centralWidget->addWidget(addressBookPage);
     centralWidget->addWidget(receiveCoinsPage);
-	centralWidget->addWidget(miningPage);
     centralWidget->addWidget(sendCoinsPage);
-    centralWidget->addWidget(chatWindow);
-	centralWidget->addWidget(tradingDialogPage);
 	centralWidget->addWidget(blockBrowser);
-	centralWidget->addWidget(socialnetworkmanagerPage);
-	centralWidget->addWidget(searchenginePage);
-    centralWidget->addWidget(buydomains);
-    centralWidget->addWidget(buyphonenumbers);
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -225,7 +195,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), transactionView, SLOT(focusTransaction(QModelIndex)));
-	connect(TradingAction, SIGNAL(triggered()), tradingDialogPage, SLOT(InitTrading()));
     // Double-clicking on a transaction on the transaction history page shows details
     connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), transactionView, SLOT(showDetails()));
 
@@ -241,24 +210,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     applyTheme("default");
 }
-/*
-void BitcoinGUI::RunMiningAsStartup()
-{
-    OptionsModel * opModel = clientModel->getOptionsModel();
-    bool fGenerate = opModel->getStartMiningAtStartup();
-    mapArgs["-gen"] = (fGenerate ? "1" : "0");
-    GenerateBitcoins(fGenerate, pwalletMain);
-   ui->checkBox->setChecked(fGenerate);
-    miningPage->SetMiningStatus(GetBoolArg("-gen"));
-    return;
-}
 
-void BitcoinGUI::SetMiningStatus(bool isMining)
-{
-    if(ui->checkBox)
-        ui->checkBox->setChecked(isMining);
-}
-*/
 BitcoinGUI::~BitcoinGUI()
 {
     if(trayIcon) // Hide tray icon, as deleting will let it linger until quit (on Ubuntu)
@@ -307,27 +259,6 @@ void BitcoinGUI::createActions()
     addressBookAction->setProperty("objectName","addressBookAction");
     tabGroup->addAction(addressBookAction);
 
-	chatAction = new QAction(tr("&Chat"), this);
-    chatAction->setToolTip(tr("View chat"));
-    chatAction->setCheckable(true);
-	chatAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-	chatAction->setProperty("objectName","chatAction");
-    tabGroup->addAction(chatAction);
-
-	miningAction = new QAction(tr("&Mining"), this);
-    miningAction->setToolTip(tr("Configure mining"));
-	miningAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-    miningAction->setCheckable(true);
-	miningAction->setProperty("objectName","miningAction");
-    tabGroup->addAction(miningAction);
-	
-	TradingAction = new QAction(tr("&Trade"), this);
-    TradingAction ->setToolTip(tr("Start Trading"));
-    TradingAction ->setCheckable(true);
-    TradingAction ->setShortcut(QKeySequence(Qt::ALT + Qt::Key_8));
-	TradingAction->setProperty("objectName","TradingAction");
-    tabGroup->addAction(TradingAction);
-	
 	blockAction = new QAction(tr("&Block Explorer"), this);
     blockAction->setToolTip(tr("Explore the BlockChain"));
     blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_9));
@@ -335,40 +266,9 @@ void BitcoinGUI::createActions()
     blockAction->setProperty("objectName","blockAction");
     tabGroup->addAction(blockAction);
 	
-	socialnetworkmanagerAction = new QAction(tr("&SocialNetworkManager"), this);
-    socialnetworkmanagerAction->setToolTip(tr("Social Networks Manager™"));
-    socialnetworkmanagerAction->setCheckable(true);
-	socialnetworkmanagerAction->setProperty("objectName","socialnetworkmanagerAction");
-	tabGroup->addAction(socialnetworkmanagerAction);
-	
-	searchengineAction = new QAction(tr("&SearchEngine"), this);
-    searchengineAction->setToolTip(tr("Load Anonymous Search"));
-    searchengineAction->setCheckable(true);
-	searchengineAction->setProperty("objectName","searchengineAction");
-    tabGroup->addAction(searchengineAction);  
-
-    buydomainsAction = new QAction(tr("&Buy Domains"), this);
-    buydomainsAction->setToolTip(tr("Load Buy Domains"));
-    buydomainsAction->setCheckable(true);
-    buydomainsAction->setProperty("objectName","buydomainsAction");
-    tabGroup->addAction(buydomainsAction);
-
-    buyphonenumbersAction = new QAction(tr("&Buy Phone Numbers"), this);
-    buyphonenumbersAction->setToolTip(tr("Load Buy Phone Numbers"));
-    buyphonenumbersAction->setCheckable(true);
-    buyphonenumbersAction->setProperty("objectName","buyphonenumbersAction");
-    tabGroup->addAction(buyphonenumbersAction);
-
-	connect(searchengineAction, SIGNAL(triggered()), this, SLOT(gotoSearchEnginePage()));
-    connect(buydomainsAction, SIGNAL(triggered()), this, SLOT(gotoBuyDomains()));
-    connect(buyphonenumbersAction, SIGNAL(triggered()), this, SLOT(gotoBuyPhoneNumbers()));
-	connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(socialnetworkmanagerAction, SIGNAL(triggered()), this, SLOT(gotoSocialNetworkManagerPage()));
 	connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
-	connect(miningAction, SIGNAL(triggered()), this, SLOT(gotoMiningPage()));
-	connect(chatAction, SIGNAL(triggered()), this, SLOT(gotoChatPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
     connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -377,7 +277,6 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
-	connect(TradingAction, SIGNAL(triggered()), this, SLOT(gotoTradingPage()));
 
     quitAction = new QAction(QIcon(":/default/res/themes/default/icons/light/sign-out.png"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -472,7 +371,6 @@ void BitcoinGUI::_addButtonInToolbar(QAction *action,QToolBar *toolbar)
 
 void BitcoinGUI::createToolBars()
 {
-
     QToolBar *toptoolbar = new QToolBar(tr("Tabs Top toolbar"));
     toptoolbar->addWidget(new Header);
     addToolBar(Qt::TopToolBarArea,toptoolbar);
@@ -480,28 +378,20 @@ void BitcoinGUI::createToolBars()
     QToolBar *toolbar = new QToolBar(tr("Tabs toolbar"));
     toolbar->setObjectName("leftToolbar");
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
- //   toolbar->setContentsMargins(50,0,20,0);
+
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    spacer->setMinimumSize(10,40);
+    toolbar->addWidget(spacer);
 
     _addButtonInToolbar(overviewAction,toolbar);
     _addButtonInToolbar(sendCoinsAction,toolbar);
     _addButtonInToolbar(receiveCoinsAction,toolbar);
-	_addButtonInToolbar(chatAction,toolbar);
 	_addButtonInToolbar(blockAction,toolbar);
 	_addButtonInToolbar(historyAction,toolbar);
     _addButtonInToolbar(addressBookAction,toolbar);
-	_addButtonInToolbar(miningAction,toolbar);
-	_addButtonInToolbar(TradingAction,toolbar);
-    _addButtonInToolbar(socialnetworkmanagerAction,toolbar);
-	_addButtonInToolbar(searchengineAction,toolbar);
-    _addButtonInToolbar(buydomainsAction,toolbar);
-    _addButtonInToolbar(buyphonenumbersAction,toolbar);
     addToolBar(Qt::LeftToolBarArea,toolbar);
 	
-//    QToolBar *toolbar2 = new QToolBar(tr("Actions toolbar"));
-//    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-//    toolbar2->addAction(exportAction);
-
-//    addToolBar(Qt::LeftToolBarArea, toolbar2);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -564,9 +454,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
-		miningPage->setModel(clientModel);
 		blockBrowser->setModel(clientModel);
-		tradingDialogPage->setModel(walletModel);
 		
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
@@ -745,9 +633,15 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     else
     {
         tooltip = tr("Catching up...") + QString("<br>") + tooltip;
-        labelBlocksIcon->setMovie(syncIconMovie);
-        syncIconMovie->start();
+         int nAttempt;
+            int progress = 0;
 
+            labelBlocksIcon->setPixmap(QIcon(QString(
+                                                 ":/movies/spinner-%1")
+                                                 .arg(spinnerFrame, 3, 10, QChar('0')))
+                                           .pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+            spinnerFrame = (spinnerFrame + 1) % SPINNER_FRAMES;
+            
         overviewPage->showOutOfSyncWarning(true);
     }
 
@@ -816,16 +710,6 @@ void BitcoinGUI::message(const QString &title, const QString &message, unsigned 
 
 void BitcoinGUI::setMining(bool mining, int hashrate)
 {
-    if (mining)
-    {
-        labelMiningIcon->setPixmap(QIcon(":/icons/mining_active").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Mining MUE at %1 hashes per second").arg(hashrate));
-    }
-    else
-    {
-        labelMiningIcon->setPixmap(QIcon(":/icons/mining_inactive").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Not mining MUE"));
-    }
 }
 
 void BitcoinGUI::error(const QString &title, const QString &message, bool modal)
@@ -930,28 +814,6 @@ void BitcoinGUI::gotoOverviewPage()
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
-void BitcoinGUI::gotoMiningPage()
-{
-    miningAction->setChecked(true);
-    centralWidget->setCurrentWidget(miningPage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoChatPage()
-{
-    chatAction->setChecked(true);
-    centralWidget->setCurrentWidget(chatWindow);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-
-
-
-
 void BitcoinGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
@@ -981,53 +843,6 @@ void BitcoinGUI::gotoBlockBrowser()
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
-void BitcoinGUI::gotoTradingPage()
-{
-
-     TradingAction->setChecked(true);
-     centralWidget->setCurrentWidget(tradingDialogPage);
-
-  //  exportAction->setEnabled(false);
-  //  disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoSocialNetworkManagerPage()
-{
-    socialnetworkmanagerAction->setChecked(true);
-    centralWidget->setCurrentWidget(socialnetworkmanagerPage);
-
- //   exportAction->setEnabled(false);
-//    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-}
-
-void BitcoinGUI::gotoSearchEnginePage()
-{
-    searchengineAction->setChecked(true);
-    centralWidget->setCurrentWidget(searchenginePage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-}
-void BitcoinGUI::gotoBuyDomains()
-{
-    buydomainsAction->setChecked(true);
-    centralWidget->setCurrentWidget(buydomains);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-}
-void BitcoinGUI::gotoBuyPhoneNumbers()
-{
-    buyphonenumbersAction->setChecked(true);
-    centralWidget->setCurrentWidget(buyphonenumbers);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-
-}
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
@@ -1241,8 +1056,7 @@ void BitcoinGUI::applyTheme(QString name)
 
     qApp->setStyleSheet( file.readAll() );
     file.close();
-
-    setMinimumSize(1350,750);  // You can remove this line just give good idea of theme at this resolution - Yash
+    setMinimumSize(980,650);  // You can remove this line just give good idea of theme at this resolution - Yash
 
 
 }

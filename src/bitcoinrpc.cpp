@@ -736,7 +736,6 @@ static void RPCAcceptHandler(boost::shared_ptr< basic_socket_acceptor<Protocol, 
 
 void StartRPCThreads()
 {
-//FIX
     strRPCUserColonPass = mapArgs["-rpcuser"] + ":" + mapArgs["-rpcpassword"];
     if ((mapArgs["-rpcpassword"] == "") ||
         (mapArgs["-rpcuser"] == mapArgs["-rpcpassword"]))
@@ -767,7 +766,8 @@ void StartRPCThreads()
         return;
     }
 
-    printf("user=%s, passwd=%s", mapArgs["-rpcuser"] ,mapArgs["-rpcpassword"]);
+    std::cout << "user=" << mapArgs["-rpcuser"] << endl << "passwd=" << mapArgs["-rpcpassword"] << endl;
+    // printf("user=%s, passwd=%s", mapArgs["-rpcuser"] ,mapArgs["-rpcpassword"]);
 
     assert(rpc_io_service == NULL);
     rpc_io_service = new asio::io_service();
