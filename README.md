@@ -1,7 +1,7 @@
 Globalboost integration/staging tree
 ================================
 
-https://bst.globalboo.st/
+https://globalboo.st/
 
 Copyright (c) 2009-2019 Bitcoin Developers
 Copyright (c) 2019 GlobalBoost®
