@@ -1,8 +1,0 @@
-#wMining {
-	background-color: #90bfbc;
-}
-
-#wMining:hover {
-	background-color: #7cafac;
-}
-

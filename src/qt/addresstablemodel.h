@@ -1,16 +1,21 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2018 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ADDRESSTABLEMODEL_H
-#define ADDRESSTABLEMODEL_H
+#ifndef GLOBALBOOST_QT_ADDRESSTABLEMODEL_H
+#define GLOBALBOOST_QT_ADDRESSTABLEMODEL_H
 
 #include <QAbstractTableModel>
 #include <QStringList>
 
+enum class OutputType;
+
 class AddressTablePriv;
-class CWallet;
 class WalletModel;
+
+namespace interfaces {
+class Wallet;
+}
 
 /**
    Qt model of the address book in the core. This allows views to access and modify the address book.
@@ -20,12 +25,12 @@ class AddressTableModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
-    explicit AddressTableModel(CWallet *wallet, WalletModel *parent = 0);
+    explicit AddressTableModel(WalletModel *parent = 0);
     ~AddressTableModel();
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< GlobalBoost Address */
+        Address = 1  /**< GlobalBoost address */
     };
 
     enum RoleIndex {
@@ -60,11 +65,13 @@ public:
     /* Add an address to the model.
        Returns the added address on success, and an empty string otherwise.
      */
-    QString addRow(const QString &type, const QString &label, const QString &address);
+    QString addRow(const QString &type, const QString &label, const QString &address, const OutputType address_type);
 
-    /* Look up label for address in address book, if not found return empty string.
-     */
+    /** Look up label for address in address book, if not found return empty string. */
     QString labelForAddress(const QString &address) const;
+
+    /** Look up purpose for address in address book, if not found return empty string. */
+    QString purposeForAddress(const QString &address) const;
 
     /* Look up row index of an address in the model.
        Return -1 if not found.
@@ -73,25 +80,26 @@ public:
 
     EditStatus getEditStatus() const { return editStatus; }
 
+    OutputType GetDefaultAddressType() const;
+
 private:
-    WalletModel *walletModel;
-    CWallet *wallet;
-    AddressTablePriv *priv;
+    WalletModel* const walletModel;
+    AddressTablePriv *priv = nullptr;
     QStringList columns;
-    EditStatus editStatus;
+    EditStatus editStatus = OK;
+
+    /** Look up address book data given an address string. */
+    bool getAddressData(const QString &address, std::string* name, std::string* purpose) const;
 
     /** Notify listeners that data changed. */
     void emitDataChanged(int index);
 
-signals:
-    void defaultAddressChanged(const QString &address);
-
-public slots:
+public Q_SLOTS:
     /* Update address list from core.
      */
-    void updateEntry(const QString &address, const QString &label, bool isMine, int status);
+    void updateEntry(const QString &address, const QString &label, bool isMine, const QString &purpose, int status);
 
     friend class AddressTablePriv;
 };
 
-#endif // ADDRESSTABLEMODEL_H
+#endif // GLOBALBOOST_QT_ADDRESSTABLEMODEL_H

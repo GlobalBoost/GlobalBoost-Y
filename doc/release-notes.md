@@ -1,104 +1,86 @@
-0.8.7.1 changes
-=============
-- Mac and Windows Official Gitian Builds: upgrade to openssl-1.0.1g for CVE-2014-0160
-                   Linux was not vulnerable with Lucid openssl-0.9.8k
-                   Older versions were only vulnerable with rarely used RPC SSL
-- If you build from source, be sure that your openssl is patched for CVE-2014-0160.
-- Upgrade openssl, qt, miniupnpc, zlib, libpng, qrencode
-- Many bug fixes from Bitcoin 0.8.7rc stable branch
-    including transaction malleability mitigation backports from 0.9
-- Add testnet checkpoints
-- Add new testnet seed
+Bitcoin Core version 0.17.x is now available from:
 
-0.8.6.2 changes
-=============
+  <https://bitcoincore.org/bin/bitcoin-core-0.17.x/>
 
-- Windows only: Fixes issue where network connectivity can fail.
+This is a new minor version release, including new features, various bugfixes
+and performance improvements, as well as updated translations.
 
-- Cleanup of SSE2 scrypt detection.
+Please report bugs using the issue tracker at GitHub:
 
-- Minor fixes:
-  - s/Bitcoin/Globalboost/ in the Coin Control example
-  - Fix custom build on MacOS X 10.9
-  - Fix QT5 custom build
-  - Update Debian build instructions
-  - Update Homebrew build 
+  <https://github.com/bitcoin/bitcoin/issues>
 
-0.8.6.1 changes
-=============
+To receive security and update notifications, please subscribe to:
 
-- Coin Control - experts only GUI selection of inputs before you send a transaction
+  <https://bitcoincore.org/en/list/announcements/join/>
 
-- Disable Wallet - reduces memory requirements, helpful for miner or relay nodes
+How to Upgrade
+==============
 
-- 20x reduction in default mintxfee.
+If you are running an older version, shut it down. Wait until it has completely
+shut down (which might take a few minutes for older versions), then run the
+installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on Mac)
+or `bitcoind`/`bitcoin-qt` (on Linux).
 
-- Up to 50% faster PoW validation, faster sync and reindexing.
+If your node has a txindex, the txindex db will be migrated the first time you
+run 0.17.0 or newer, which may take up to a few hours. Your node will not be
+functional until this migration completes.
 
-- Peers older than protocol version 70002 are disconnected.  0.8.3.7 is the oldest compatible client.
+The first time you run version 0.15.0 or newer, your chainstate database will be converted to a
+new format, which will take anywhere from a few minutes to half an hour,
+depending on the speed of your machine.
 
-- Internal miner added back to Globalboost.  setgenerate now works, although it is generally a bad idea as it is significantly slower than external CPU miners.
+Note that the block database format also changed in version 0.8.0 and there is no
+automatic upgrade code from before version 0.8 to version 0.15.0. Upgrading
+directly from 0.7.x and earlier without redownloading the blockchain is not supported.
+However, as usual, old wallet versions are still supported.
 
-- New RPC commands: getbestblockhash and verifychain
+Downgrading warning
+-------------------
 
-- Improve fairness of the high priority transaction space per block
+The chainstate database for this release is not compatible with previous
+releases, so if you run 0.15 and then decide to switch back to any
+older version, you will need to run the old release with the `-reindex-chainstate`
+option to rebuild the chainstate data structures in the old format.
 
-- OSX block chain database corruption fixes
-  - Update leveldb to 1.13
-  - Use fcntl with `F_FULLSYNC` instead of fsync on OSX
-  - Use native Darwin memory barriers
-  - Replace use of mmap in leveldb for improved reliability (only on OSX)
+If your node has pruning enabled, this will entail re-downloading and
+processing the entire blockchain.
 
-- Fix nodes forwarding transactions with empty vins and getting banned
+Compatibility
+==============
 
-- Network code performance and robustness improvements
+Bitcoin Core is extensively tested on multiple operating systems using
+the Linux kernel, macOS 10.10+, and Windows 7 and newer (Windows XP is not supported).
 
-- Additional debug.log logging for diagnosis of network problems, log timestamps by default
+Bitcoin Core should also work on most other Unix-like systems but is not
+frequently tested on them.
 
-- Fix rare GUI crash on send
+From 0.17.0 onwards macOS <10.10 is no longer supported. 0.17.0 is built using Qt 5.9.x, which doesn't
+support versions of macOS older than 10.10.
 
-0.8.5.1 changes
+Notable changes
 ===============
 
-Workaround negative version numbers serialization bug.
+Documentation
+-------------
 
-Fix out-of-bounds check (Globalboost currently does not use this codepath, but we apply this
-patch just to match Bitcoin 0.8.5.)
+- A new document introduces Bitcoin Core's BIP174
+  [Partially-Signed Bitcoin Transactions (PSBT)](https://github.com/bitcoin/bitcoin/blob/0.17/doc/psbt.md)
+  interface, which is used to allow multiple programs to collaboratively
+  work to create, sign, and broadcast new transactions.  This is useful
+  for offline (cold storage) wallets, multisig wallets, coinjoin
+  implementations, and many other cases where two or more programs need
+  to interact to generate a complete transaction.
 
-0.8.4.1 changes
-===============
+0.17.x change log
+=================
 
-CVE-2013-5700 Bloom: filter crash issue - Globalboost 0.8.3.7 disabled bloom by default so was 
-unaffected by this issue, but we include their patches anyway just in case folks want to 
-enable bloomfilter=1.
+(todo)
 
-CVE-2013-4165: RPC password timing guess vulnerability
+Credits
+=======
 
-CVE-2013-4627: Better fix for the fill-memory-with-orphaned-tx attack
+Thanks to everyone who directly contributed to this release:
 
-Fix multi-block reorg transaction resurrection.
+(todo)
 
-Fix non-standard disconnected transactions causing mempool orphans.  This bug could cause 
-nodes running with the -debug flag to crash, although it was lot less likely on Globalboost 
-as we disabled IsDust() in 0.8.3.x.
-
-Mac OSX: use 'FD_FULLSYNC' with LevelDB, which will (hopefully!) prevent the database 
-corruption issues have experienced on OSX.
-
-Add height parameter to getnetworkhashps.
-
-Fix Norwegian and Swedish translations.
-
-Minor efficiency improvement in block peer request handling.
-
-
-0.8.3.7 changes
-===============
-
-Fix CVE-2013-4627 denial of service, a memory exhaustion attack that could crash low-memory nodes.
-
-Fix a regression that caused excessive writing of the peers.dat file.
-
-Add option for bloom filtering.
-
-Fix Hebrew translation.
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).

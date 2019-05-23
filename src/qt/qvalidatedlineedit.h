@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2013 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2011-2018 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef QVALIDATEDLINEEDIT_H
-#define QVALIDATEDLINEEDIT_H
+#ifndef GLOBALBOOST_QT_QVALIDATEDLINEEDIT_H
+#define GLOBALBOOST_QT_QVALIDATEDLINEEDIT_H
 
 #include <QLineEdit>
 
@@ -15,20 +15,29 @@ class QValidatedLineEdit : public QLineEdit
     Q_OBJECT
 
 public:
-    explicit QValidatedLineEdit(QWidget *parent = 0);
+    explicit QValidatedLineEdit(QWidget *parent);
     void clear();
+    void setCheckValidator(const QValidator *v);
+    bool isValid();
 
 protected:
     void focusInEvent(QFocusEvent *evt);
+    void focusOutEvent(QFocusEvent *evt);
 
 private:
     bool valid;
+    const QValidator *checkValidator;
 
-public slots:
+public Q_SLOTS:
     void setValid(bool valid);
+    void setEnabled(bool enabled);
 
-private slots:
+Q_SIGNALS:
+    void validationDidChange(QValidatedLineEdit *validatedLineEdit);
+
+private Q_SLOTS:
     void markValid();
+    void checkValidity();
 };
 
-#endif // QVALIDATEDLINEEDIT_H
+#endif // GLOBALBOOST_QT_QVALIDATEDLINEEDIT_H
