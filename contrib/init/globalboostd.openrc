@@ -1,0 +1,93 @@
+#!/sbin/openrc-run
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/globalboost/.globalboost" ]; then
+	GLOBALBOOSTD_DEFAULT_DATADIR="/var/lib/globalboost/.globalboost"
+else
+	GLOBALBOOSTD_DEFAULT_DATADIR="/var/lib/globalboostd"
+fi
+
+GLOBALBOOSTD_CONFIGFILE=${GLOBALBOOSTD_CONFIGFILE:-/etc/globalboost/globalboost.conf}
+GLOBALBOOSTD_PIDDIR=${GLOBALBOOSTD_PIDDIR:-/var/run/globalboostd}
+GLOBALBOOSTD_PIDFILE=${GLOBALBOOSTD_PIDFILE:-${GLOBALBOOSTD_PIDDIR}/globalboostd.pid}
+GLOBALBOOSTD_DATADIR=${GLOBALBOOSTD_DATADIR:-${GLOBALBOOSTD_DEFAULT_DATADIR}}
+GLOBALBOOSTD_USER=${GLOBALBOOSTD_USER:-${GLOBALBOOST_USER:-globalboost}}
+GLOBALBOOSTD_GROUP=${GLOBALBOOSTD_GROUP:-globalboost}
+GLOBALBOOSTD_BIN=${GLOBALBOOSTD_BIN:-/usr/bin/globalboostd}
+GLOBALBOOSTD_NICE=${GLOBALBOOSTD_NICE:-${NICELEVEL:-0}}
+GLOBALBOOSTD_OPTS="${GLOBALBOOSTD_OPTS:-${GLOBALBOOST_OPTS}}"
+
+name="GlobalBoost Core Daemon"
+description="GlobalBoost cryptocurrency P2P network daemon"
+
+command="/usr/bin/globalboostd"
+command_args="-pid=\"${GLOBALBOOSTD_PIDFILE}\" \
+		-conf=\"${GLOBALBOOSTD_CONFIGFILE}\" \
+		-datadir=\"${GLOBALBOOSTD_DATADIR}\" \
+		-daemon \
+		${GLOBALBOOSTD_OPTS}"
+
+required_files="${GLOBALBOOSTD_CONFIGFILE}"
+start_stop_daemon_args="-u ${GLOBALBOOSTD_USER} \
+			-N ${GLOBALBOOSTD_NICE} -w 2000"
+pidfile="${GLOBALBOOSTD_PIDFILE}"
+
+# The retry schedule to use when stopping the daemon. Could be either
+# a timeout in seconds or multiple signal/timeout pairs (like
+# "SIGKILL/180 SIGTERM/300")
+retry="${GLOBALBOOSTD_SIGTERM_TIMEOUT}"
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${GLOBALBOOSTD_USER}:${GLOBALBOOSTD_GROUP}" \
+	"${GLOBALBOOSTD_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${GLOBALBOOSTD_USER}:${GLOBALBOOSTD_GROUP}" \
+	"${GLOBALBOOSTD_PIDDIR}"
+
+	checkpath -f \
+	-o "${GLOBALBOOSTD_USER}:${GLOBALBOOSTD_GROUP}" \
+	-m 0660 \
+	"${GLOBALBOOSTD_CONFIGFILE}"
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if grep -qs '^rpcuser=' "${GLOBALBOOSTD_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${GLOBALBOOSTD_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run globalboostd."
+		eerror "The setting must appear in ${GLOBALBOOSTD_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following "
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"GlobalBoost Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

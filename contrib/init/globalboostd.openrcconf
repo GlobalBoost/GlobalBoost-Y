@@ -1,0 +1,33 @@
+# /etc/conf.d/globalboostd: config file for /etc/init.d/globalboostd
+
+# Config file location
+#GLOBALBOOSTD_CONFIGFILE="/etc/globalboost/globalboost.conf"
+
+# What directory to write pidfile to?  (created and owned by $GLOBALBOOSTD_USER)
+#GLOBALBOOSTD_PIDDIR="/var/run/globalboostd"
+
+# What filename to give the pidfile
+#GLOBALBOOSTD_PIDFILE="${GLOBALBOOSTD_PIDDIR}/globalboostd.pid"
+
+# Where to write globalboostd data (be mindful that the blockchain is large)
+#GLOBALBOOSTD_DATADIR="/var/lib/globalboostd"
+
+# User and group to own globalboostd process
+#GLOBALBOOSTD_USER="globalboost"
+#GLOBALBOOSTD_GROUP="globalboost"
+
+# Path to globalboostd executable
+#GLOBALBOOSTD_BIN="/usr/bin/globalboostd"
+
+# Nice value to run globalboostd under
+#GLOBALBOOSTD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#GLOBALBOOSTD_OPTS=""
+
+# The timeout in seconds OpenRC will wait for globalboostd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+GLOBALBOOSTD_SIGTERM_TIMEOUT=600
