@@ -133,6 +133,7 @@ public:
         vSeeds.emplace_back("seeder.globalboost.info"); // globalboost.info
         vSeeds.emplace_back("seeder2.globalboost.info");
 	vSeeds.emplace_back("seeder3.globalboost.info");
+	vSeeds.emplace_back("dnsseed.globalboost.cc");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,77);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,139);
