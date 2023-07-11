@@ -82,7 +82,7 @@ public:
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 240000; // 
         consensus.BIP66Height = 240000; // 
-        consensus.CSVHeight = 419328; // 
+        consensus.CSVHeight = 239904; // 
         consensus.SegwitHeight = 239904; // 
         consensus.MinBIP9WarningHeight = 241920; // segwit activation height + miner confirmation window
         consensus.powLimit = uint256S("003fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
@@ -99,9 +99,9 @@ public:
 
         // Deployment of Taproot (BIPs 340-342)
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1685940285; // April 24th, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1688532285; // August 11th, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 437400; // Approximately November 12th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1689379200; // Saturday, July 15, 2023 12:00:00 AM
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1697327999;   // Saturday, October 14, 2023 11:59:59 PM
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 443000; //
 
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000003ccc732166a0f");
         consensus.defaultAssumeValid = uint256S("0x09f29bd786ed6777bd3b8526d1e43e4aa64dd94ff26eb0f183f72d34967d95c6"); // 231713
@@ -132,7 +132,8 @@ public:
         // release ASAP to avoid it where possible.
         vSeeds.emplace_back("seeder.globalboost.info."); // 
         vSeeds.emplace_back("seeder2.globalboost.info."); // 
-        vSeeds.emplace_back("seeder3.globalboost.info."); // 
+        vSeeds.emplace_back("seeder3.globalboost.info."); //
+        vSeeds.emplace_back("dnsseed.globalboost.cc");
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,77);
@@ -157,6 +158,7 @@ public:
                 { 29000, uint256S("0x63a67152f31a4596fc6ca5073ffe4cf68264922e740285f0ae7b3bb8cbc66b39")},
                 { 60000, uint256S("0x8ac508122d4f7b290c19cb45be6e071e7aace53cd043a892e79041672c1ba99d")},
 		        {206494, uint256S("0xe852dcc3019c11a7f0589d418bc63f4a197c743e811db920221f930aa9abf589")},
+                {440968, uint256S("0x4a0cb53b028e6be852798207b7aab8ee7e542507306b3f19d63dda0cb8e6825e")},
             }
         };
 
