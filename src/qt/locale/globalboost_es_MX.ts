@@ -939,7 +939,7 @@ Para obtener más información sobre cómo usar esta consola, escribe %6.
         <translation type="unfinished">Pagar &amp;a:</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">La dirección de GlobalBoost a la que se enviará el pago</translation>
     </message>
     <message>

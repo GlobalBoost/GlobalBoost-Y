@@ -3235,7 +3235,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">‫اختر عنوانا تم استخدامه سابقا‬</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">‫عنوان البتكوين لارسال الدفعة له‬</translation>
     </message>
     <message>
@@ -3301,7 +3301,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">‫تستطيع توقيع رسائل/اتفاقيات من عناوينك لإثبات أنه بإمكانك استلام بتكوين مرسل لهذه العناوين. كن حذرا من توقيع أي شيء غامض أو عشوائي، هجمات التصيد قد تحاول خداعك وانتحال هويتك. وقع البيانات الواضحة بالكامل والتي توافق عليها فقط.‬</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
+        <source>The GlobalBoost address to sign the message with</source>
         <translation type="unfinished">عنوان البتكوين لتوقيع الرسالة منه</translation>
     </message>
     <message>
@@ -3349,7 +3349,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">أدخل عنوان المتلقي، راسل (تأكد من نسخ فواصل الأسطر، الفراغات، الخ.. تماما) والتوقيع أسفله لتأكيد الرسالة. كن حذرا من عدم قراءة داخل التوقيع أكثر مما هو موقع بالرسالة نفسها، لتجنب خداعك بهجوم man-in-the-middle. لاحظ أنه هذا لاثبات أن الجهة الموقعة تستقبل مع العنوان فقط، لا تستطيع اثبات الارسال لأي معاملة.</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">عنوان البتكوين الذي تم توقيع الرسالة منه</translation>
     </message>
     <message>

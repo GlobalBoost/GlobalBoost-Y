@@ -95,11 +95,11 @@
     },
     "SignatureMalleabilityGlobalBoost" : {
       "bugType" : "SIGNATURE_MALLEABILITY",
-      "description" : "\"BitCoins\"-curves are curves where signature malleability can be a serious issue. An implementation should only accept a signature s where s < n/2. If an implementation is not meant for uses cases that require signature malleability then this implemenation should be tested with another set of test vectors.",
+      "description" : "\"GlobalBoosts\"-curves are curves where signature malleability can be a serious issue. An implementation should only accept a signature s where s < n/2. If an implementation is not meant for uses cases that require signature malleability then this implemenation should be tested with another set of test vectors.",
       "effect" : "In globalboost exchanges, it may be used to make a double deposits or double withdrawals",
       "links" : [
-        "https://en.globalboost.it/wiki/Transaction_malleability",
-        "https://en.globalboostwiki.org/wiki/Transaction_Malleability"
+        "https://en.bitcoin.it/wiki/Transaction_malleability",
+        "https://en.bitcoinwiki.org/wiki/Transaction_Malleability"
       ]
     },
     "SmallRandS" : {

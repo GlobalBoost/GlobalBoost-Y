@@ -1810,7 +1810,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">पहले इस्तेमाल किया गया पता चुनें</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">भुगतान भेजने के लिए बिटकॉइन पता</translation>
     </message>
     <message>
@@ -1884,7 +1884,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">आप अपने पते के साथ संदेशों/समझौतों पर हस्ताक्षर करके यह साबित कर सकते हैं कि आप उन्हें भेजे गए बिटकॉइन प्राप्त कर सकते हैं। सावधान रहें कि कुछ भी अस्पष्ट या यादृच्छिक पर हस्ताक्षर न करें, क्योंकि फ़िशिंग हमले आपको अपनी पहचान पर हस्ताक्षर करने के लिए छल करने का प्रयास कर सकते हैं। केवल पूरी तरह से विस्तृत बयानों पर हस्ताक्षर करें जिनसे आप सहमत हैं।</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
+        <source>The GlobalBoost address to sign the message with</source>
         <translation type="unfinished">संदेश पर हस्ताक्षर करने के लिए बिटकॉइन पता</translation>
     </message>
     <message>
@@ -1940,7 +1940,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">संदेश को सत्यापित करने के लिए नीचे प्राप्तकर्ता का पता, संदेश (सुनिश्चित करें कि आप लाइन ब्रेक, रिक्त स्थान, टैब आदि की प्रतिलिपि बनाते हैं) और हस्ताक्षर दर्ज करें। सावधान रहें कि हस्ताक्षरित संदेश में जो लिखा है, उससे अधिक हस्ताक्षर में न पढ़ें, ताकि बीच-बीच में किसी व्यक्ति द्वारा छल किए जाने से बचा जा सके। ध्यान दें कि यह केवल यह साबित करता है कि हस्ताक्षर करने वाला पक्ष पते के साथ प्राप्त करता है, यह किसी भी लेनदेन की प्रेषकता साबित नहीं कर सकता है!</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">संदेश के साथ हस्ताक्षर किए गए बिटकॉइन पते</translation>
     </message>
     <message>

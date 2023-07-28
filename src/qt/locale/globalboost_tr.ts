@@ -2740,7 +2740,7 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Önceden kullanılmış adres seç</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">Ödemenin yollanacağı GlobalBoost adresi</translation>
     </message>
     <message>
@@ -2802,7 +2802,7 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Adreslerinize yollanan globalboostleri alabileceğiniz ispatlamak için adreslerinizle iletiler/anlaşmalar imzalayabilirsiniz. Oltalama saldırılarının kimliğinizi imzanızla elde etmeyi deneyebilecekleri için belirsiz ya da rastgele hiçbir şey imzalamamaya dikkat ediniz. Sadece ayrıntılı açıklaması olan ve tümüne katıldığınız ifadeleri imzalayınız.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
+        <source>The GlobalBoost address to sign the message with</source>
         <translation type="unfinished">İletinin imzalanmasında kullanılacak GlobalBoost adresi</translation>
     </message>
     <message>
@@ -2850,7 +2850,7 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Alıcının adresini, iletiyi (satır sonları, boşluklar, sekmeler vs. karakterleri tam olarak kopyaladığınızdan emin olunuz) ve imzayı aşağıya giriniz. Bir ortadaki adam saldırısı tarafından kandırılmaya engel olmak için imzadan, imzalı iletinin içeriğini aşan bir anlam çıkarmamaya dikkat ediniz. Bunun sadece imzalayan tarafın adres ile alım yapabildiğini ispatladığını ve herhangi bir işlemin gönderi tarafını kanıtlayamayacağını unutmayınız!</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">İletinin imzalanmasında kullanılan GlobalBoost adresi</translation>
     </message>
     <message>

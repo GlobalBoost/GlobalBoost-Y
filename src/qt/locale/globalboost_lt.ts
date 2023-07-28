@@ -2265,7 +2265,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">Pasirinkite anksčiau naudojamą adresą</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">GlobalBoost adresas, į kurį siunčiamas mokėjimas</translation>
     </message>
     <message>
@@ -2319,7 +2319,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">&amp;Pasirašyti žinutę</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
+        <source>The GlobalBoost address to sign the message with</source>
         <translation type="unfinished">GlobalBoost adresas, kuriuo bus pasirašytas pranešimas su</translation>
     </message>
     <message>
@@ -2363,7 +2363,7 @@ Pasirašymas galimas tik su 'legacy' tipo adresais.</translation>
         <translation type="unfinished">&amp;Patikrinti žinutę</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">GlobalBoost adresas, kuriuo buvo pasirašytas pranešimas</translation>
     </message>
     <message>

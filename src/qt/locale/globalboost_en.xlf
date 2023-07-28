@@ -3590,7 +3590,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <context-group purpose="location"><context context-type="linenumber">60</context></context-group>
       </trans-unit>
       <trans-unit id="_msg781">
-        <source xml:space="preserve">The Bitcoin address to send the payment to</source>
+        <source xml:space="preserve">The GlobalBoost address to send the payment to</source>
         <context-group purpose="location"><context context-type="linenumber">53</context></context-group>
       </trans-unit>
       <trans-unit id="_msg782">
@@ -3667,7 +3667,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <context-group purpose="location"><context context-type="linenumber">33</context></context-group>
       </trans-unit>
       <trans-unit id="_msg798">
-        <source xml:space="preserve">The Bitcoin address to sign the message with</source>
+        <source xml:space="preserve">The GlobalBoost address to sign the message with</source>
         <context-group purpose="location"><context context-type="linenumber">51</context></context-group>
       </trans-unit>
       <trans-unit id="_msg799">
@@ -3727,7 +3727,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <context-group purpose="location"><context context-type="linenumber">246</context></context-group>
       </trans-unit>
       <trans-unit id="_msg812">
-        <source xml:space="preserve">The Bitcoin address the message was signed with</source>
+        <source xml:space="preserve">The GlobalBoost address the message was signed with</source>
         <context-group purpose="location"><context context-type="linenumber">267</context></context-group>
       </trans-unit>
       <trans-unit id="_msg813">

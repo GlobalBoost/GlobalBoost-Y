@@ -3121,7 +3121,7 @@ Nota: Dado que la comisión se calcula por cada byte, una tasa de «100 satoshis
         <translation type="unfinished">Escoger una dirección previamente usada</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">Dirección GlobalBoost a la que se enviará el pago</translation>
     </message>
     <message>
@@ -3187,7 +3187,7 @@ Nota: Dado que la comisión se calcula por cada byte, una tasa de «100 satoshis
         <translation type="unfinished">Puedes firmar los mensajes con tus direcciones para demostrar que las posees. Ten cuidado de no firmar cualquier cosa vaga, ya que los ataques de phishing pueden tratar de engañarte firmando tu identidad a través de ellos. Firma solo declaraciones totalmente detalladas con las que estés de acuerdo.</translation>
     </message>
     <message>
-        <source>The Bitcoin address to sign the message with</source>
+        <source>The GlobalBoost address to sign the message with</source>
         <translation type="unfinished">La dirección GlobalBoost con la que se firmó el mensaje</translation>
     </message>
     <message>
@@ -3235,7 +3235,7 @@ Nota: Dado que la comisión se calcula por cada byte, una tasa de «100 satoshis
         <translation type="unfinished">Introduzca la dirección para la firma, el mensaje (asegurándose de copiar tal cual los saltos de línea, espacios, tabulaciones, etc.) y la firma a continuación para verificar el mensaje. Tenga cuidado de no asumir más información de lo que dice el propio mensaje firmado para evitar fraudes basados en ataques de tipo man-in-the-middle. Tenga en cuenta que esto solo prueba que la parte firmante recibe con esta dirección, ¡no puede probar el envío de ninguna transacción!</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">Dirección GlobalBoost con la que firmar el mensaje</translation>
     </message>
     <message>

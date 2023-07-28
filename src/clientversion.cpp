@@ -85,16 +85,16 @@ std::string CopyrightHolders(const std::string& strPrefix)
 
     // Make sure GlobalBoost Core copyright is not removed by accident
     if (copyright_devs.find("GlobalBoost Core") == std::string::npos) {
-        strCopyrightHolders += "\n" + strPrefix + "The Bitcoin Core developers";
+        strCopyrightHolders += "\n" + strPrefix + "The GlobalBoost Core developers";
     }
     return strCopyrightHolders;
 }
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/globalboost/globalboost>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/GlobalBoost/GlobalBoost-Y>";
 
-    return CopyrightHolders(strprintf(_("Copyright (C) %i-%i").translated, 2009, COPYRIGHT_YEAR) + " ") + "\n" +
+    return CopyrightHolders(strprintf(_("Copyright (C) %i-%i").translated, 2014, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +
            strprintf(_("Please contribute if you find %s useful. "
                        "Visit %s for further information about the software.").translated, PACKAGE_NAME, "<" PACKAGE_URL ">") +

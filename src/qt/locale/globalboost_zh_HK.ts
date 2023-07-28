@@ -2455,7 +2455,7 @@ For more information on using this console, type %6.
         <translation type="unfinished">付給(&amp;T):</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">將支付發送到的比特幣地址給</translation>
     </message>
     <message>
@@ -2533,7 +2533,7 @@ For more information on using this console, type %6.
         <translation type="unfinished">消息验证(&amp;V)</translation>
     </message>
     <message>
-        <source>The Bitcoin address the message was signed with</source>
+        <source>The GlobalBoost address the message was signed with</source>
         <translation type="unfinished">用来签名消息的地址</translation>
     </message>
     <message>

@@ -1434,7 +1434,7 @@
         <translation type="unfinished">&amp;Etyketa:</translation>
     </message>
     <message>
-        <source>The Bitcoin address to send the payment to</source>
+        <source>The GlobalBoost address to send the payment to</source>
         <translation type="unfinished">Adresa GlobalBoost, na kerõ chcesz posłać płat</translation>
     </message>
     <message>
