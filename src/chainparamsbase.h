@@ -5,6 +5,7 @@
 #ifndef GLOBALBOOST_CHAINPARAMSBASE_H
 #define GLOBALBOOST_CHAINPARAMSBASE_H
 
+#include <cstdint>
 #include <memory>
 #include <string>
 
